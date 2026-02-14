@@ -10,7 +10,8 @@
         "c:\\Users\\jacob\\Documents\\GitHub\\6121B-PushBack\\include",
         "/home/ssenthilkumar/Robotics/6121B-PushBack/include",
         "/home/ssenthilkumar/Personal_Projects/Robotics/6121B-PushBack/include",
-        "c:\\Users\\srini\\OneDrive\\Desktop\\6121B-PushBack222\\include"
+        "c:\\Users\\srini\\OneDrive\\Desktop\\6121B-PushBack222\\include",
+        "c:\\Users\\srini\\OneDrive\\Desktop\\6121BFeb1426\\include"
       ],
       "defines": [
         "_DEBUG",
@@ -23,7 +24,7 @@
       "intelliSenseMode": "gcc-arm",
       "browse": {
         "path": [
-          "c:\\Users\\srini\\OneDrive\\Desktop\\6121B-PushBack222"
+          "c:\\Users\\srini\\OneDrive\\Desktop\\6121BFeb1426"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""
