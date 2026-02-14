@@ -1,0 +1,37 @@
+{
+  "configurations": [
+    {
+      "name": "PROS Project",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "c:\\Users\\srini\\OneDrive\\Documents\\GitHub\\6121B-PushBack\\include",
+        "/Users/aryangupta/Downloads/6121B-PushBack/include",
+        "c:\\Users\\malin\\OneDrive\\Documents\\GitHub\\6121B-PushBack\\include",
+        "c:\\Users\\jacob\\Documents\\GitHub\\6121B-PushBack\\include",
+        "/home/ssenthilkumar/Robotics/6121B-PushBack/include",
+        "/home/ssenthilkumar/Personal_Projects/Robotics/6121B-PushBack/include",
+        "c:\\Users\\srini\\OneDrive\\Desktop\\6121B-PushBack222\\include"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "compilerPath": "c:\\Users\\srini\\AppData\\Roaming\\Code\\User\\globalStorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\arm-none-eabi-g++",
+      "cStandard": "gnu11",
+      "cppStandard": "gnu++20",
+      "intelliSenseMode": "gcc-arm",
+      "browse": {
+        "path": [
+          "c:\\Users\\srini\\OneDrive\\Desktop\\6121B-PushBack222"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": ""
+      },
+      "macFrameworkPath": [
+        "/System/Library/Frameworks"
+      ]
+    }
+  ],
+  "version": 4
+}
