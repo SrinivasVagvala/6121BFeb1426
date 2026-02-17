@@ -1,9 +1,9 @@
-#ifndef _EKF_HPP_
-#define _EKF_HPP_
+#ifndef _QUADSENSOR_HPP_
+#define _QUADSENSOR_HPP_
 
 #include "main.h"
 
-class RobotEKF {
+class RobotPos {
 private:
     const float mmToIn = 1.0f / 25.4f;
 
@@ -18,19 +18,19 @@ public:
     // field position in inches (x, y, heading) = (0,1,2)
     float X[3];
 
-    RobotEKF();
+    RobotPos();
 
     // use sensor data to update our position estimate
     void update(float f_raw, float b_raw, float l_raw, float r_raw);
 };
 
-void ekfOpControl();
-void ekfTask(void* parameter);
+void posOpControl();
+void posTask(void* parameter);
 
 enum SensorSide { FRONT, BACK };
 
 void distanceCorrection(int targetD, int distFromWall, int speed, SensorSide side);
 
-extern RobotEKF rohan;
+extern RobotPos rohan;
 
 #endif 

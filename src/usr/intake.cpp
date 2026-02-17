@@ -27,6 +27,10 @@ bool match = false;
 
 bool antiJamOn = false;
 
+bool ball_lock = false;
+
+bool buttonDone = false;
+
 
 int intakeStuckTime = 0;
 
@@ -139,43 +143,87 @@ void MiddleGoalScoreSkills(bool state){
 }
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
-    if(lowerintake.get_actual_velocity() > 0 && matchloadExtended()==false && scoring.get_actual_velocity()==0 && master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+    // if(lowerintake.get_actual_velocity() > 0 && matchloadExtended()==false && scoring.get_actual_velocity()==0 && master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
         
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {  // intake
+    // }
+    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {  // intake
 
-        lowerintake.move(lowerVelocity*1.10);
-        scoring.move(scoringVelocity*-1.10);
-        ballLock.extend();
-        scoringState.extend();
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
-        // used in descore.cpp for wings
-    }
-    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) { // low goal scoring / extake
+    //     lowerintake.move(lowerVelocity*1.10);
+    //     scoring.move(scoringVelocity*-1.10);
+    //     ballLock.extend();
+    //     scoringState.extend();
+    // }
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
+    //     // used in descore.cpp for wings
+    // }
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) { // low goal scoring / extake
         
-        scorePiston.extend();  
+    //     if (scorePiston.is_extended() == true){
+    //         scorePiston.extend();
+    //     } 
+    //     lowerintake.move(lowerVelocity*-1.27);
+    //     scoring.move(scoringVelocity*1.27);
+    // }
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) { // scoring
+    //     if(scoringState.is_extended()){ // long goal scoring
+    //         lowerintake.move(lowerVelocity*1.27);
+    //         scoring.move(scoringVelocity*-1.27);
+
+    //     }
+    //     else if(scoringState.is_extended() == false){ // middle goal scoring
+    //         lowerintake.move(lowerVelocity*1.17);
+    //         scoring.move(scoringVelocity*-1.17);
+    //     }
+    // }
+    // else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) { // middle goal descore
+    //     midDescore.toggle();
+    // }
+    // else { // if no buttons are being pressed, the motors will stop
+    //     lowerintake.move(0);
+    //     scoring.move(0);
+    // }
+
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
         lowerintake.move(lowerVelocity*-1.27);
         scoring.move(scoringVelocity*1.27);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) { // scoring
-        if(scoringState.is_extended()){ // long goal scoring
-            lowerintake.move(lowerVelocity*1.27);
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
+        buttonDone = true;
+        scoring.move(scoringVelocity*-1.27);
+        lowerintake.move(lowerVelocity*1.27);
+        
+        ballLock.extend();
+        scoringState.retract();
+        scorePiston.retract();
+
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone){
+        scoring.move(scoringVelocity*-1.27);
+        lowerintake.move(lowerVelocity*1.27);
+
+    }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){ // scoring
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ //midgoal
             scoring.move(scoringVelocity*-1.27);
+            lowerintake.move(lowerVelocity*1.27);
 
         }
-        else if(scoringState.is_extended() == false){ // middle goal scoring
-            lowerintake.move(lowerVelocity*1.17);
-            scoring.move(scoringVelocity*-1.17);
+        else { //long goal
+            scoring.move(scoringVelocity*-1.27);
+            lowerintake.move(lowerVelocity*1.27);
+
+            ballLock.retract();
+            scoringState.retract();
+            scorePiston.retract();
         }
+
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) { // middle goal descore
-        midDescore.toggle();
-    }
-    else { // if no buttons are being pressed, the motors will stop
+    else {
         lowerintake.move(0);
         scoring.move(0);
+        buttonDone = false;
     }
+
 }
 
 void heatSensingControl() {

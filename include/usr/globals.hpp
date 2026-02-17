@@ -4,7 +4,7 @@
 
 
 
-#define LOWER_INTAKE 17
+#define LOWER_INTAKE 19
 #define TOP_INTAKE 18
 
 
@@ -13,12 +13,12 @@
 #define LEFTDISTANCE 19
 #define RIGHTDISTANCE 9
 
-#define MATCHLOAD 'A'
-#define WING 'B'
-#define SCORING 'C'
-#define MIDDESCORE 'D'
-#define SCORESTATE 'E'
-#define BALLLOCK 'F'
+#define MATCHLOAD 'B'
+#define WING 'C' 
+#define SCORING 'E'
+#define MIDDESCORE 'F'
+#define SCORESTATE 'D'  
+#define BALLLOCK 'G'
 
 
 extern pros::Controller master;

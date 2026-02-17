@@ -11,7 +11,6 @@ pros::adi::Pneumatics descore(WING, false, true);
 void descoreOpControl(){  // the intake velocity switches based on which button is being pressed
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) { // if l2 is pressed the wings are activated
         descore.toggle();
-
     }
 } 
 

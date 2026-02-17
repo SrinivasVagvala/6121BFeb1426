@@ -6,7 +6,7 @@
 #include "usr/globals.hpp"
 #include "usr/intake.hpp"
 #include "usr/middlegoal.hpp"
-#include "usr/ekf.hpp"
+#include "usr/quadsensor.hpp"
 
 const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 90;
@@ -54,6 +54,8 @@ void initialize() {
   ez::ez_template_print();
   //chassis.opcontrol_curve_default_set(2.1); 
 
+  chassis.pid_tuner_enable();
+
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
@@ -73,20 +75,14 @@ void initialize() {
   
   // Set the drive to your own constants from autons.cpp!
   default_constants();
+
+
   pros::Task intake_task(intakeTask);
   pros::Task descore_task(descoreTask);
   pros::Task matchloader_task(matchloaderTask);
   pros::Task middlegoal_task(middleGoalTask);
   pros::Task macro_task(macroTask);
-  pros::Task ekf_task(ekfTask);
-
-
-  //pros::Task mogo_task(mogoTask);
-	//pros::Task intake_task(intakeTask);
-  //pros::Task sweeper_task(sweeperTask);
- // pros::Task lift_task(liftTask);
-  //pros::Task stack_task(stackTask);
-  //pros::Task frame_task(frameTask);
+  pros::Task pos_task(posTask);
 
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
@@ -113,8 +109,13 @@ void initialize() {
 
   // Initialize chassis and auton selector
   chassis.initialize();
-  ez::as::initialize();
+
+  //ez::as::initialize();
+
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
+
+
+  
 }
 
 /**
@@ -198,7 +199,7 @@ void autonomous() {
   //Left3Plus4();
   //Inverse12C();
   //Inverse3Plus4();    
-  Right4Plus6();
+  //Right4Plus6();
   // ----------------------------
 
   // ------- 4 Ball Rush --------
@@ -211,6 +212,7 @@ void autonomous() {
 
   //DistanceSensorTest();
 
+  tuningDrivePID();
 
 
 
@@ -378,9 +380,18 @@ void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
+  chassis.pid_tuner_enable();
+
   while (true) {
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
+
+    
+    // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+    //   tuningDrivePID();
+    // }
+
+    chassis.pid_tuner_iterate();
 
     //chassis.opcontrol_tank();  // Tank control
     chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
@@ -394,9 +405,9 @@ void opcontrol() {
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
     
-      if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
-        progSkills81();
-      }
+    
+
+
     // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){ // park and low goal
     //   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
     //   if (!killSwitchOn) {

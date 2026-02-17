@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "81",
+    "project_name": "PID TUNING",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -426,7 +426,7 @@
     "upload_options": {
       "description": "vex robotics",
       "icon": "pros",
-      "slot": 8
+      "slot": 1
     },
     "use_early_access": false
   }

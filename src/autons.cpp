@@ -89,8 +89,6 @@ void drive_example() {
   // for slew, only enable it when the drive distance is greater than the slew distance + a few inches
 
   //chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
-  chassis.pid_turn_set(180_deg, TURN_SPEED, true);
-  chassis.pid_wait();
 }
 
 void tuningDrivePID() {
@@ -98,7 +96,8 @@ void tuningDrivePID() {
   chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  pros::delay(500);
+  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
 
   chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();

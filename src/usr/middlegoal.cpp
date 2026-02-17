@@ -9,7 +9,9 @@
 extern pros::adi::Pneumatics scoringState;
 extern pros::adi::Pneumatics ballLock;
 extern pros::adi::Pneumatics scorePiston;
+extern pros::adi::Pneumatics midDescore;
 
+extern bool ball_lock;   
 
 void middleGoalTask(void *parameter){
     
@@ -24,17 +26,27 @@ void middleGoalTask(void *parameter){
 }
 
 void middleGoalOpControl(){
-        //middle goal control code here
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
-        scoringState.extend();
-        ballLock.retract();
-        scorePiston.retract();
-    }
-    else{
-        scoringState.retract();
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+
+        ball_lock = true;
+
         ballLock.extend();
+        scoringState.extend();
         scorePiston.extend();
     }
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){ // middle goal descore
+        midDescore.toggle();
+    }
+
+    if (not master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+
+        ball_lock = false;
+        
+        
+        scoringState.retract();
+        scorePiston.retract();
+    }
+    
 }
 void middleGoalPiston(bool state){
     if(state){

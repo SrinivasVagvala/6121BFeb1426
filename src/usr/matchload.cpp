@@ -8,9 +8,9 @@ pros::adi::Pneumatics MATCHLOADER (MATCHLOAD, true, true);
 
 
 void matchloaderOpControl(){
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-        MATCHLOADER.toggle();
-    }
+    // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+    //     MATCHLOADER.toggle();
+    // }
 
 }
 

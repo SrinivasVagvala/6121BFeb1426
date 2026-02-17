@@ -1,9 +1,9 @@
-bin/main.cpp.o: src/main.cpp include/main.h include/api.h \
- include/pros/adi.h include/pros/colors.h include/pros/device.h \
- include/pros/distance.h include/pros/error.h include/pros/ext_adi.h \
- include/pros/adi.h include/pros/adi.h include/pros/gps.h \
- include/pros/imu.h include/pros/link.h include/pros/llemu.h \
- include/liblvgl/llemu.h include/liblvgl/lvgl.h \
+bin/usr/quadsensor.cpp.o: src/usr/quadsensor.cpp include/main.h \
+ include/api.h include/pros/adi.h include/pros/colors.h \
+ include/pros/device.h include/pros/distance.h include/pros/error.h \
+ include/pros/ext_adi.h include/pros/adi.h include/pros/adi.h \
+ include/pros/gps.h include/pros/imu.h include/pros/link.h \
+ include/pros/llemu.h include/liblvgl/llemu.h include/liblvgl/lvgl.h \
  include/liblvgl/misc/lv_log.h include/liblvgl/lv_conf_internal.h \
  include/liblvgl/lv_conf_kconfig.h include/liblvgl/lv_conf.h \
  include/liblvgl/misc/lv_types.h include/liblvgl/misc/lv_timer.h \
@@ -140,8 +140,7 @@ bin/main.cpp.o: src/main.cpp include/main.h include/api.h \
  include/EZ-Template/piston.hpp include/EZ-Template/sdcard.hpp \
  include/usr/globals.hpp include/usr/intake.hpp include/usr/descore.hpp \
  include/usr/matchload.hpp include/autons.hpp include/subsystems.hpp \
- include/usr/globals.hpp include/usr/intake.hpp \
- include/usr/middlegoal.hpp include/usr/quadsensor.hpp
+ include/usr/quadsensor.hpp
 include/main.h:
 include/api.h:
 include/pros/adi.h:
@@ -380,7 +379,4 @@ include/usr/descore.hpp:
 include/usr/matchload.hpp:
 include/autons.hpp:
 include/subsystems.hpp:
-include/usr/globals.hpp:
-include/usr/intake.hpp:
-include/usr/middlegoal.hpp:
 include/usr/quadsensor.hpp:
