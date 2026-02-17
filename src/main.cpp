@@ -6,6 +6,7 @@
 #include "usr/globals.hpp"
 #include "usr/intake.hpp"
 #include "usr/middlegoal.hpp"
+#include "usr/ekf.hpp"
 
 const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 90;
@@ -27,10 +28,10 @@ bool killSwitchOn = false;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-11,-13,-14},     // Left Chassis Ports (negative port will reverse it!)
-    {18,19,20},  // Right Chassis Ports (negative port will reverse it!)
+    {-11,-12,-13},     // Left Chassis Ports (negative port will reverse it!)
+    {14,15,16},  // Right Chassis Ports (negative port will reverse it!)
 
-    3,      // IMU Port
+    17,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
@@ -77,6 +78,7 @@ void initialize() {
   pros::Task matchloader_task(matchloaderTask);
   pros::Task middlegoal_task(middleGoalTask);
   pros::Task macro_task(macroTask);
+  pros::Task ekf_task(ekfTask);
 
 
   //pros::Task mogo_task(mogoTask);

@@ -132,9 +132,9 @@ bin/usr/intake.cpp.o: src/usr/intake.cpp include/EZ-Template/util.hpp \
  include/pros/vision.h include/okapi/api/units/QAngle.hpp \
  include/okapi/api/units/RQuantity.hpp \
  include/okapi/api/units/QLength.hpp include/okapi/api/units/QTime.hpp \
- include/main.h include/api.h include/EZ-Template/api.hpp \
- include/EZ-Template/PID.hpp include/EZ-Template/auton.hpp \
- include/EZ-Template/auton_selector.hpp \
+ include/usr/globals.hpp include/main.h include/api.h \
+ include/EZ-Template/api.hpp include/EZ-Template/PID.hpp \
+ include/EZ-Template/auton.hpp include/EZ-Template/auton_selector.hpp \
  include/EZ-Template/drive/drive.hpp include/EZ-Template/slew.hpp \
  include/EZ-Template/tracking_wheel.hpp include/pros/adi.hpp \
  include/pros/rotation.hpp include/pros/motor_group.hpp \
@@ -360,6 +360,7 @@ include/okapi/api/units/QAngle.hpp:
 include/okapi/api/units/RQuantity.hpp:
 include/okapi/api/units/QLength.hpp:
 include/okapi/api/units/QTime.hpp:
+include/usr/globals.hpp:
 include/main.h:
 include/api.h:
 include/EZ-Template/api.hpp:

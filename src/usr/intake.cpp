@@ -1,4 +1,5 @@
 #include "EZ-Template/util.hpp"
+#include "globals.hpp"
 #include "main.h"
 #include "pros/adi.hpp"
 #include "pros/misc.h"
@@ -6,15 +7,19 @@
 #include "middlegoal.hpp"
 
 pros::Motor lowerintake(LOWER_INTAKE);
-pros::Motor scoring(SCORING);
+pros::Motor scoring(TOP_INTAKE);
 
-pros::Optical lowerOptical(LOWEROPTICAL);
+pros::adi::Pneumatics scorePiston(SCORING, true, true);
+pros::adi::Pneumatics ballLock(BALLLOCK, true, true);
+pros::adi::Pneumatics scoringState(SCORESTATE, true, true);
+
 
 extern pros::adi::Pneumatics middleGoal;
 
-pros::adi::Pneumatics DESCOREMID (MIDDESCORE, true, true);
 
-pros::Distance frontD(FRONTDISTANCE);
+pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
+
+extern pros::Distance frontD;
 
 
 bool redTeam = true; // true signifies red team, so color sorting blue, and vice versa if false
@@ -69,7 +74,7 @@ void scoreHigh(bool state){
 }
 
 void descoreMidToggle(){
-    DESCOREMID.toggle();
+    midDescore.toggle();
 }
 
 void scoreMid(bool state, bool useExtake){ // sometimes need extake
@@ -138,39 +143,39 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {  // intake
-        lowerintake.move(lowerVelocity*1.27);
+
+        lowerintake.move(lowerVelocity*1.10);
+        scoring.move(scoringVelocity*-1.10);
+        ballLock.extend();
+        scoringState.extend();
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
         // used in descore.cpp for wings
     }
-    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) { // low goal scoring
-         DESCOREMID.toggle();
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) { // low goal scoring / extake
+        
+        scorePiston.extend();  
+        lowerintake.move(lowerVelocity*-1.27);
+        scoring.move(scoringVelocity*1.27);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) { // scoring
-        if(middleGoal.is_extended()){ // long goal scoring
+        if(scoringState.is_extended()){ // long goal scoring
             lowerintake.move(lowerVelocity*1.27);
             scoring.move(scoringVelocity*-1.27);
 
         }
-        else if(middleGoal.is_extended() == false){ // middle goal scoring
-            lowerintake.move(lowerVelocity*0.90);
-            scoring.move(scoringVelocity*-0.85);
-        }
-
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) { // if A is pressed the intake moves in the backwards direction
-        lowerintake.move(lowerVelocity * -1);
-        scoring.move(scoringVelocity);
-    }
-    else if(lowerintake.get_actual_velocity() > 0 && matchloadExtended()==false && scoring.get_actual_velocity()==0 && master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
-        while(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
-            lowerintake.move(127);
+        else if(scoringState.is_extended() == false){ // middle goal scoring
+            lowerintake.move(lowerVelocity*1.17);
+            scoring.move(scoringVelocity*-1.17);
         }
     }
-    else { // if another button is pressed, the intake doesn't move
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) { // middle goal descore
+        midDescore.toggle();
+    }
+    else { // if no buttons are being pressed, the motors will stop
         lowerintake.move(0);
         scoring.move(0);
-     }
+    }
 }
 
 void heatSensingControl() {
@@ -250,34 +255,34 @@ void turnScoringatXSpeed(bool state, int speed){
 
 void matchLoadSorting() {
 
-    int lowerOptical_bright = 75;
+    // int lowerOptical_bright = 75;
 
-    lowerOptical.set_led_pwm(lowerOptical_bright);
+    // lowerOptical.set_led_pwm(lowerOptical_bright);
 
-    double hue2 = lowerOptical.get_hue();
+    // double hue2 = lowerOptical.get_hue();
     
-    master.print(0,0,"Hue   %f",hue2);
+    // master.print(0,0,"Hue   %f",hue2);
 
-    // benchmark values for each ring, for each parameter
-    double bHue = 46;
+    // // benchmark values for each ring, for each parameter
+    // double bHue = 46;
 
-    double rHue = 40;
+    // double rHue = 40;
 
 
     
-    if ((hue2 > bHue) && redTeam) { 
-    master.print(0,0,"BLU"); 
-    lowerintake.move(autonLowerVelocity*-1);
-    pros::delay(300);
-    lowerintake.move(autonLowerVelocity*1);    
-    }
+    // if ((hue2 > bHue) && redTeam) { 
+    // master.print(0,0,"BLU"); 
+    // lowerintake.move(autonLowerVelocity*-1);
+    // pros::delay(300);
+    // lowerintake.move(autonLowerVelocity*1);    
+    // }
 
-    else if((hue2 < rHue) && !redTeam){
-    master.print(0,0,"RED");
-    lowerintake.move(autonLowerVelocity*-1);
-    pros::delay(340);
-    lowerintake.move(autonLowerVelocity*1);
-    }
+    // else if((hue2 < rHue) && !redTeam){
+    // master.print(0,0,"RED");
+    // lowerintake.move(autonLowerVelocity*-1);
+    // pros::delay(340);
+    // lowerintake.move(autonLowerVelocity*1);
+    // }
     
 
      

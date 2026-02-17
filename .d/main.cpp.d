@@ -141,7 +141,7 @@ bin/main.cpp.o: src/main.cpp include/main.h include/api.h \
  include/usr/globals.hpp include/usr/intake.hpp include/usr/descore.hpp \
  include/usr/matchload.hpp include/autons.hpp include/subsystems.hpp \
  include/usr/globals.hpp include/usr/intake.hpp \
- include/usr/middlegoal.hpp
+ include/usr/middlegoal.hpp include/usr/ekf.hpp
 include/main.h:
 include/api.h:
 include/pros/adi.h:
@@ -383,3 +383,4 @@ include/subsystems.hpp:
 include/usr/globals.hpp:
 include/usr/intake.hpp:
 include/usr/middlegoal.hpp:
+include/usr/ekf.hpp:
