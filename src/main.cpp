@@ -54,8 +54,7 @@ void initialize() {
   ez::ez_template_print();
   //chassis.opcontrol_curve_default_set(2.1); 
 
-  chassis.pid_tuner_enable();
-
+  
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
@@ -211,8 +210,11 @@ void autonomous() {
 
 
   //DistanceSensorTest();
-
-  tuningDrivePID();
+  //turn_example();
+  //square();
+  //drive_and_turn();
+  //tuningDrivePID();
+  tuningTurnPID();
 
 
 
@@ -380,7 +382,6 @@ void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
-  chassis.pid_tuner_enable();
 
   while (true) {
     // Gives you some extras to make EZ-Template ezier
@@ -391,7 +392,6 @@ void opcontrol() {
     //   tuningDrivePID();
     // }
 
-    chassis.pid_tuner_iterate();
 
     //chassis.opcontrol_tank();  // Tank control
     chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade

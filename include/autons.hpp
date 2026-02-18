@@ -23,6 +23,8 @@ void tuningTurnPID();
 
 void tuningDrivePID();
 
+void square();
+
 void macroTask(void* parameter);
 
 void testIntake();
