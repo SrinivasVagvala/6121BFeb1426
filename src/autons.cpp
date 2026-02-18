@@ -47,8 +47,8 @@ void default_constants() {
   // kP 20 kD 100 for driving
   // turn in place constants are kP 4 and kD 23.0 and kI 0.05, then 15.0
   chassis.pid_drive_constants_set(16.5, 0.0, 153);         // Fwd/rev constants, used for odom and non odom motions
-  chassis.pid_heading_constants_set(11.0, 0.0, 20.0);        // Holds the robot straight while going forward without odom
-  chassis.pid_turn_constants_set(3.0, 0.05, 20.0, 15.0);     // Turn in place constants
+  chassis.pid_heading_constants_set(15.5, 0.0, 24.5);        // Holds the robot straight while going forward without odom
+  chassis.pid_turn_constants_set(4.75, 0.05, 28.0, 10.0);     // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
   chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
   chassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
@@ -93,13 +93,7 @@ void drive_example() {
 
 void tuningDrivePID() {
 
-  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   
@@ -109,8 +103,44 @@ void tuningTurnPID() {
 
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
   
-  chassis.pid_turn_set(20_deg, TURN_SPEED, true);
+  chassis.pid_turn_set(90_deg, TURN_SPEED, true);
   chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_turn_set(90_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_turn_set(90_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  
+
+  // chassis.pid_turn_set(90_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_turn_set(90_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_turn_set(180_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_turn_set(180_deg, TURN_SPEED, true);
+  // chassis.pid_wait();
+
+
+
+
+
 
 }
 
@@ -488,7 +518,6 @@ void testPID(){
   chassis.pid_wait();
 
 
-  
 
   
   // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
@@ -639,19 +668,19 @@ void Inverse3Plus4(){
   chassis.pid_turn_chain_constant_set(2_deg);
   chassis.pid_drive_chain_constant_set(2_in);
 
-  setMatch(false);
-  setAntiJam(false);
-  wingToggle();
-  intake(true); // turns on intake
+  // setMatch(false);
+  // setAntiJam(false);
+  // wingToggle();
+  // intake(true); // turns on intake
 
   chassis.odom_xyt_set(0_in, 0_in, 0_deg); // resets odom position every so often
   
   chassis.pid_drive_set(26_in, DRIVE_SPEED, true);  // moves towards triple balls
-  chassis.pid_wait_until(17_in);
-  matchloaderActive(true);
+  // chassis.pid_wait_until(17_in);
+  // //matchloaderActive(true);
   chassis.pid_wait();
 
-  matchloaderInactive(true);
+  // matchloaderInactive(true);
 
   chassis.pid_turn_set(-115_deg, TURN_SPEED, false); // turn to matchloader area
   chassis.pid_wait_quick_chain();
@@ -664,8 +693,8 @@ void Inverse3Plus4(){
   chassis.pid_wait_quick_chain();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  reverseScoring(false);
-  setAntiJam(true);
+  // reverseScoring(false);
+  // setAntiJam(true);
 
   chassis.pid_drive_set(-30.5_in, DRIVE_SPEED, true);
   pros::delay(625);
@@ -673,16 +702,16 @@ void Inverse3Plus4(){
   chassis.pid_turn_chain_constant_set(3_deg);
   chassis.pid_drive_chain_constant_set(3_in);
 
-  matchloaderActive(true);
+  //matchloaderActive(true);
 
 
-  scoreHigh(true); // scores in the high goal
-  pros::delay(990); 
+  // scoreHigh(true); // scores in the high goal
+  // pros::delay(990); 
 
-  reverseScoring(true);
-  intake(true);
+  // reverseScoring(true);
+  // intake(true);
 
-  setAntiJam(false);
+  // setAntiJam(false);
 
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
@@ -694,7 +723,7 @@ void Inverse3Plus4(){
   chassis.pid_drive_set(-9_in, DRIVE_SPEED, true); //moves toward the goal to do final score
   chassis.pid_wait();
 
-  matchloaderInactive(true);
+  //matchloaderInactive(true);
 
   chassis.pid_turn_set(49_deg, TURN_SPEED, false); // turn to matchloader
   pros::delay(400);
@@ -703,19 +732,19 @@ void Inverse3Plus4(){
   chassis.pid_drive_set(-54_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
   chassis.pid_wait();
 
-  middleGoalPiston(true);
-  scoreMid(true, false);
+  // middleGoalPiston(true);
+  // scoreMid(true, false);
 
-  pros::delay(1050);
+  // pros::delay(1050);
 
-  middleGoalPiston(false);
-  scoreMid(false, false);
+  // middleGoalPiston(false);
+  // scoreMid(false, false);
 
   
   chassis.pid_drive_set(7_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
   chassis.pid_wait_quick_chain();
 
-  descoreMidToggle();
+  //descoreMidToggle();
 
   chassis.pid_drive_set(-7_in, DRIVE_SPEED*0.45, true);  // lurch to matchload area
   chassis.pid_wait_quick_chain();
@@ -727,12 +756,12 @@ void Inverse3Plus4(){
   chassis.pid_wait_quick_chain();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  wingToggle();
+  //wingToggle();
 
   chassis.pid_drive_set(-26.5_in, DRIVE_SPEED*0.7, true);
   chassis.pid_wait_quick_chain();
 
-  descoreMidToggle();
+  //descoreMidToggle();
 
 
 

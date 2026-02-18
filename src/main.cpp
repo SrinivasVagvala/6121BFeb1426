@@ -81,7 +81,7 @@ void initialize() {
   pros::Task matchloader_task(matchloaderTask);
   pros::Task middlegoal_task(middleGoalTask);
   pros::Task macro_task(macroTask);
-  pros::Task pos_task(posTask);
+  //pros::Task pos_task(posTask);
 
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
@@ -214,7 +214,10 @@ void autonomous() {
   //square();
   //drive_and_turn();
   //tuningDrivePID();
-  tuningTurnPID();
+  //tuningTurnPID();
+  //testPID();
+  Inverse3Plus4();
+  
 
 
 
