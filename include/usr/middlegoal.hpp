@@ -8,5 +8,6 @@ void middleGoalPiston(bool state);
 
 void middleGoalOpControl();
 
+void midDescoreToggle();
 
 #endif

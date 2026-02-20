@@ -15,30 +15,26 @@ void intakeTask(void* parameter);
 void setMatch(bool state);
 void setTeam(bool state);
 
-void intake(bool state);
-void extake(bool state);
-void reverseScoring(bool state);
+void intake(bool state); // done
+void extake(bool state); // done
+void reverseScoring(bool state); // done
 
-void scoreHigh(bool state);
-void scoreMid(bool state, bool useExtake);
-void scoreLow(bool state);
+void scoreHigh(bool state); // done
+void scoreMid(bool state, bool useExtake); // done
+void scoreLow(bool state); // done
 
-void MiddleAlignerActive(bool state);
-void MiddleAlignerInactive(bool state);
 
-void MiddleGoalScoreSkills(bool state);
+void MiddleGoalScoreSkills(bool state); // done
 
-void turnOffLower(bool state);
-void turnOffScoring(bool state);
-void turnLoweratXSpeed(bool state,int speed);
-void turnScoringatXSpeed(bool state, int speed);
+void turnOffLower(bool state); // done
+void turnOffScoring(bool state); // done
+void turnLoweratXSpeed(bool state,int speed); // done
+void turnScoringatXSpeed(bool state, int speed); // done
 
 
 void antiJam();
 
 void setAntiJam(bool state);
-
-void descoreMidToggle();
 
 
 

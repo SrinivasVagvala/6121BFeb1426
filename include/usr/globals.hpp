@@ -15,10 +15,8 @@
 
 #define MATCHLOAD 'B'
 #define WING 'C' 
-#define SCORING 'E'
+#define SCORING 'D'
 #define MIDDESCORE 'F'
-#define SCORESTATE 'D'  
-#define BALLLOCK 'G'
 
 
 extern pros::Controller master;

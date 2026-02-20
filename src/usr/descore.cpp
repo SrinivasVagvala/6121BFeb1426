@@ -4,7 +4,7 @@
 #include <sys/_intsup.h>
 
 
-pros::adi::Pneumatics descore(WING, false, true);
+pros::adi::Pneumatics descore(WING, false, false);
 
 
 

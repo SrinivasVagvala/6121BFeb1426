@@ -6,8 +6,6 @@
 #include "middlegoal.hpp"
 #include "pros/rtos.hpp"
 
-extern pros::adi::Pneumatics scoringState;
-extern pros::adi::Pneumatics ballLock;
 extern pros::adi::Pneumatics scorePiston;
 extern pros::adi::Pneumatics midDescore;
 
@@ -26,13 +24,11 @@ void middleGoalTask(void *parameter){
 }
 
 void middleGoalOpControl(){
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal piston movements
 
         ball_lock = true;
 
-        ballLock.extend();
-        scoringState.extend();
-        scorePiston.extend();
+        scorePiston.retract();
     }
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){ // middle goal descore
         midDescore.toggle();
@@ -43,20 +39,19 @@ void middleGoalOpControl(){
         ball_lock = false;
         
         
-        scoringState.retract();
-        scorePiston.retract();
+        scorePiston.extend();   
     }
     
 }
-void middleGoalPiston(bool state){
+void middleGoalPiston(bool state){ // done
     if(state){
-        scoringState.extend();
-        ballLock.retract();
         scorePiston.retract();
     }
     else{
-        scoringState.retract();
-        ballLock.extend();
         scorePiston.extend();
     }
+}
+
+void midDescoreToggle(){ // done
+    midDescore.toggle();
 }

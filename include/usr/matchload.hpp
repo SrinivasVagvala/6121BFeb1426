@@ -8,7 +8,7 @@ void matchloaderInactive(bool state);
 void matchloaderTask(void* parameter); 
 bool matchloadExtended();
 
-
+void matchloadToggle();
 
 
 #endif

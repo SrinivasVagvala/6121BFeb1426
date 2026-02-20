@@ -9,13 +9,10 @@
 pros::Motor lowerintake(LOWER_INTAKE);
 pros::Motor scoring(TOP_INTAKE);
 
-pros::adi::Pneumatics scorePiston(SCORING, true, true);
-pros::adi::Pneumatics ballLock(BALLLOCK, true, true);
-pros::adi::Pneumatics scoringState(SCORESTATE, true, true);
-
+pros::adi::Pneumatics scorePiston(SCORING, false, true);
 
 extern pros::adi::Pneumatics middleGoal;
-
+extern pros::adi::Pneumatics descore;
 
 pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
 
@@ -27,6 +24,7 @@ bool match = false;
 
 bool antiJamOn = false;
 
+bool stopScoring = false;
 bool ball_lock = false;
 
 bool buttonDone = false;
@@ -41,12 +39,13 @@ int scoringVelocity = 100;
 
 int overHeatTemp = 55; // temperature at which the motor is considered overheated
 
+
 int autonLowerVelocity = 100;
 int autonScoringVelocity = 100;
 
 void reverseScoring(bool state){
     if (state){
-        scoring.move(autonScoringVelocity*1.27*0.3);
+        scoring.move(autonScoringVelocity*1.27);
     }
     else{
         scoring.move(0);
@@ -56,30 +55,37 @@ void reverseScoring(bool state){
 
 void intake(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*1.2);
+        scoring.move(autonScoringVelocity*-1.27);
+        lowerintake.move(autonLowerVelocity*1.27);
+        
+        descore.extend();
+        scorePiston.extend();
     }
     else{
         lowerintake.move(0);
+        scoring.move(0);
     }
 }
 
 void extake(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*-1);
-        scoring.move(autonScoringVelocity);
+        lowerintake.move(autonLowerVelocity*-1.27);
+        scoring.move(autonScoringVelocity*1.27);
     }
 }
 
 void scoreHigh(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*1.27);
         scoring.move(autonScoringVelocity*-1.27);
+        lowerintake.move(autonLowerVelocity*1.27);
+
+        descore.retract();
+
+        scorePiston.extend();
     }
 }
 
-void descoreMidToggle(){
-    midDescore.toggle();
-}
+
 
 void scoreMid(bool state, bool useExtake){ // sometimes need extake
     if (state){
@@ -90,12 +96,13 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
             
             pros::delay(100);
 
-            lowerintake.move(autonLowerVelocity*0.8255);
-            scoring.move(scoringVelocity*-1.016);
+            scoring.move(autonScoringVelocity*-1.27);
+            lowerintake.move(autonLowerVelocity*1.27);
         }
         else{
-            lowerintake.move(autonLowerVelocity*0.90);
-            scoring.move(scoringVelocity*-0.7);
+            scoring.move(autonScoringVelocity*-1.27);
+            lowerintake.move(autonLowerVelocity*1.27);
+
         }
     }
     else{
@@ -107,8 +114,8 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
 
 void scoreLow(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*-0.7);
-        scoring.move(autonScoringVelocity*1.27);
+        lowerintake.move(autonLowerVelocity*-1.07);
+        scoring.move(autonScoringVelocity*1.07);
     }
     else{
         lowerintake.move(0);
@@ -116,24 +123,12 @@ void scoreLow(bool state){
     }
 }
 
-void MiddleAlignerActive(bool state){
-    if(state){
-        middleGoalPiston(true);
-    }
 
-}
-
-void MiddleAlignerInactive(bool state){
-    if(state){
-        middleGoalPiston(false);
-    }
-
-}
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        lowerintake.move(autonLowerVelocity*0.65);
-        scoring.move(autonScoringVelocity*-0.85);
+        scoring.move(autonScoringVelocity*-1.27*0.5);
+            lowerintake.move(autonLowerVelocity*1.27*0.5);
     }
     else{
         lowerintake.move(0);
@@ -143,78 +138,61 @@ void MiddleGoalScoreSkills(bool state){
 }
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
-    // if(lowerintake.get_actual_velocity() > 0 && matchloadExtended()==false && scoring.get_actual_velocity()==0 && master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
-        
-    // }
-    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {  // intake
-
-    //     lowerintake.move(lowerVelocity*1.10);
-    //     scoring.move(scoringVelocity*-1.10);
-    //     ballLock.extend();
-    //     scoringState.extend();
-    // }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
-    //     // used in descore.cpp for wings
-    // }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) { // low goal scoring / extake
-        
-    //     if (scorePiston.is_extended() == true){
-    //         scorePiston.extend();
-    //     } 
-    //     lowerintake.move(lowerVelocity*-1.27);
-    //     scoring.move(scoringVelocity*1.27);
-    // }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) { // scoring
-    //     if(scoringState.is_extended()){ // long goal scoring
-    //         lowerintake.move(lowerVelocity*1.27);
-    //         scoring.move(scoringVelocity*-1.27);
-
-    //     }
-    //     else if(scoringState.is_extended() == false){ // middle goal scoring
-    //         lowerintake.move(lowerVelocity*1.17);
-    //         scoring.move(scoringVelocity*-1.17);
-    //     }
-    // }
-    // else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) { // middle goal descore
-    //     midDescore.toggle();
-    // }
-    // else { // if no buttons are being pressed, the motors will stop
-    //     lowerintake.move(0);
-    //     scoring.move(0);
-    // }
-
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
         lowerintake.move(lowerVelocity*-1.27);
         scoring.move(scoringVelocity*1.27);
+
+    }
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
+        stopScoring = false;   
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
         buttonDone = true;
-        scoring.move(scoringVelocity*-1.27);
+
+        
         lowerintake.move(lowerVelocity*1.27);
         
-        ballLock.extend();
-        scoringState.retract();
-        scorePiston.retract();
+
+        if (stopScoring == false){
+            scoring.move(scoringVelocity*-1.27);
+        }
+        else {
+            scoring.move(0);
+        }
+
+        
+        descore.extend();
+        scorePiston.extend();
 
     }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone){
-        scoring.move(scoringVelocity*-1.27);
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone ){
+
         lowerintake.move(lowerVelocity*1.27);
+        
+
+        if (stopScoring == false){
+            scoring.move(scoringVelocity*-1.27);
+        }
+        else {
+            scoring.move(0);
+        }
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){ // scoring
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ //midgoal
             scoring.move(scoringVelocity*-1.27);
             lowerintake.move(lowerVelocity*1.27);
+
+            descore.retract();
 
         }
         else { //long goal
             scoring.move(scoringVelocity*-1.27);
             lowerintake.move(lowerVelocity*1.27);
 
-            ballLock.retract();
-            scoringState.retract();
-            scorePiston.retract();
+            descore.retract();
+
+            scorePiston.extend();
         }
 
     }
@@ -297,7 +275,7 @@ void turnLoweratXSpeed(bool state,int speed){
 
 void turnScoringatXSpeed(bool state, int speed){
     if (state){
-        scoring.move(speed);
+        scoring.move(speed*-1);
     }
 }
 
@@ -368,6 +346,24 @@ void antiJam(){
 
 }
 
+void scoringJam(){
+    if (fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "stop scoring");
+            master.rumble("-");
+            scoring.move(0);
+
+            stopScoring = true;
+            intakeStuckTime = 0;
+        }
+    }
+}
+
 void setAntiJam(bool state){
     antiJamOn = state;
 }
@@ -387,9 +383,14 @@ void intakeTask(void* parameter) {
 
             // pros::delay(50);
 
+            scoringJam();
+
             // master.print(0,0,"Front: %i",frontD.get());
 
             // pros::delay(1000);
+
+            
+        
             
         }
         else if (pros::competition::is_autonomous()) {

@@ -197,7 +197,7 @@ void autonomous() {
   // ---------- Long + Middle -----------
   //Left3Plus4();
   //Inverse12C();
-  //Inverse3Plus4();    
+  Inverse3Plus4();    
   //Right4Plus6();
   // ----------------------------
 
@@ -216,7 +216,6 @@ void autonomous() {
   //tuningDrivePID();
   //tuningTurnPID();
   //testPID();
-  Inverse3Plus4();
   
 
 

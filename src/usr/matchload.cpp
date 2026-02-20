@@ -3,20 +3,24 @@
 #include "pros/misc.h"
 #include <sys/_intsup.h>
 
-pros::adi::Pneumatics MATCHLOADER (MATCHLOAD, true, true);
+pros::adi::Pneumatics MATCHLOADER (MATCHLOAD, false, false);
 
 
 
 void matchloaderOpControl(){
-    // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
-    //     MATCHLOADER.toggle();
-    // }
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+        MATCHLOADER.toggle();
+    }
 
+}
+
+void matchloadToggle(){
+    MATCHLOADER.toggle();
 }
 
 void matchloaderInactive(bool state){
     if(state){
-        MATCHLOADER.extend();
+        MATCHLOADER.retract();
     }
 
 }
@@ -27,7 +31,7 @@ bool matchloadExtended(){
 
 void matchloaderActive(bool state){
     if (state){
-        MATCHLOADER.retract();
+        MATCHLOADER.extend();
     }
 
 }
