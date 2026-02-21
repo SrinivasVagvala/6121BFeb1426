@@ -30,10 +30,14 @@ void middleGoalOpControl(){
 
         scorePiston.retract();
     }
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){ // middle goal descore
-        midDescore.toggle();
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){ // middle goal descore
+        midDescore.retract();
     }
-
+    
+    if (not master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+        midDescore.extend();
+    }
+    
     if (not master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
 
         ball_lock = false;

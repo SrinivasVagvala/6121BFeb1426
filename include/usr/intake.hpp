@@ -32,9 +32,9 @@ void turnLoweratXSpeed(bool state,int speed); // done
 void turnScoringatXSpeed(bool state, int speed); // done
 
 
-void antiJam();
+void antiJam(bool direction);
 
-void setAntiJam(bool state);
+void setAntiJam(bool state, bool antiS);
 
 
 

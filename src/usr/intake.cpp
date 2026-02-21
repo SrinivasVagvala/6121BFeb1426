@@ -9,7 +9,7 @@
 pros::Motor lowerintake(LOWER_INTAKE);
 pros::Motor scoring(TOP_INTAKE);
 
-pros::adi::Pneumatics scorePiston(SCORING, false, true);
+pros::adi::Pneumatics scorePiston(SCORING, true, true); // 
 
 extern pros::adi::Pneumatics middleGoal;
 extern pros::adi::Pneumatics descore;
@@ -23,6 +23,7 @@ bool redTeam = true; // true signifies red team, so color sorting blue, and vice
 bool match = false;
 
 bool antiJamOn = false;
+bool antiState = false;
 
 bool stopScoring = false;
 bool ball_lock = false;
@@ -100,7 +101,7 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
             lowerintake.move(autonLowerVelocity*1.27);
         }
         else{
-            scoring.move(autonScoringVelocity*-1.27);
+            scoring.move(autonScoringVelocity*-1.27*0.85);
             lowerintake.move(autonLowerVelocity*1.27);
 
         }
@@ -114,8 +115,8 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
 
 void scoreLow(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*-1.07);
-        scoring.move(autonScoringVelocity*1.07);
+        lowerintake.move(autonLowerVelocity*-1.27);
+        scoring.move(autonScoringVelocity*1.27);
     }
     else{
         lowerintake.move(0);
@@ -127,8 +128,8 @@ void scoreLow(bool state){
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        scoring.move(autonScoringVelocity*-1.27*0.5);
-            lowerintake.move(autonLowerVelocity*1.27*0.5);
+        scoring.move(autonScoringVelocity*-1.27*0.6);
+            lowerintake.move(autonLowerVelocity*1.27*0.6);
     }
     else{
         lowerintake.move(0);
@@ -180,7 +181,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ //midgoal
-            scoring.move(scoringVelocity*-1.27);
+            scoring.move(scoringVelocity*-1.27*0.7);// 70 for skills
             lowerintake.move(lowerVelocity*1.27);
 
             descore.retract();
@@ -314,17 +315,25 @@ void matchLoadSorting() {
      
 }
 
-void antiJam(){
+void antiJam(bool direction){// intake is true
     if (fabs(lowerintake.get_actual_velocity()) < 0.5 && fabs(lowerintake.get_voltage()) > 2000) {
         if (intakeStuckTime == 0) {
             intakeStuckTime = pros::millis();
         }
-        else if (pros::millis() - intakeStuckTime > 20) {
+        else if (pros::millis() - intakeStuckTime > 20 && direction) {
             master.print(0,0, "This happens");
             master.rumble("-");
             lowerintake.move(autonLowerVelocity*-1);
             pros::delay(50);
             lowerintake.move(autonLowerVelocity);
+            intakeStuckTime = 0;
+        }
+        else if (pros::millis() - intakeStuckTime > 20 && direction==false) {
+            master.print(0,0, "This happens");
+            master.rumble("-");
+            lowerintake.move(autonLowerVelocity);
+            pros::delay(50);
+            lowerintake.move(autonLowerVelocity*-1);
             intakeStuckTime = 0;
         }
     }
@@ -333,7 +342,7 @@ void antiJam(){
         if (intakeStuckTime == 0) {
             intakeStuckTime = pros::millis();
         }
-        else if (pros::millis() - intakeStuckTime > 200) {
+        else if (pros::millis() - intakeStuckTime > 200 && direction) {
             master.print(0,0, "This happens");
             master.rumble("-");
             scoring.move(autonScoringVelocity);
@@ -341,8 +350,17 @@ void antiJam(){
             scoring.move(-1 * autonScoringVelocity);
             intakeStuckTime = 0;
         }
-    }
 
+        else if (pros::millis() - intakeStuckTime > 200 && direction == false) {
+            master.print(0,0, "This happens");
+            master.rumble("-");
+            scoring.move(autonScoringVelocity*-1);
+            pros::delay(100);
+            scoring.move(autonScoringVelocity);
+            intakeStuckTime = 0;
+        }
+        
+    }
 
 }
 
@@ -364,8 +382,9 @@ void scoringJam(){
     }
 }
 
-void setAntiJam(bool state){
+void setAntiJam(bool state, bool antiS){
     antiJamOn = state;
+    antiState = antiS;
 }
 
 void intakeTask(void* parameter) {
@@ -399,7 +418,12 @@ void intakeTask(void* parameter) {
                 matchLoadSorting();
             }
             if(antiJamOn){
-                antiJam();
+                if(antiState){
+                    antiJam(true);
+                }
+                else{
+                    antiJam(false);
+                }
             }
 
             

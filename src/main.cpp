@@ -177,14 +177,14 @@ void autonomous() {
 
   // ---------- 7 Balls -----------
   //Left7BallDescore();
-  //Right7BallDescore();
+ // Right7BallDescore();
   //Right7BallPush();
   //Left7BallPush();
   // --------------------------------------
 
   // ---------- Skills -----------
   //progSkills51();
-  //progSkills75();
+  progSkills75();
   //progSkills81();
   //progSkills96();
   // -----------------------------
@@ -197,8 +197,10 @@ void autonomous() {
   // ---------- Long + Middle -----------
   //Left3Plus4();
   //Inverse12C();
-  Inverse3Plus4();    
+  //Inverse3Plus4(); 
+  //LowInverse3Plus4();
   //Right4Plus6();
+  //progSkills75();
   // ----------------------------
 
   // ------- 4 Ball Rush --------

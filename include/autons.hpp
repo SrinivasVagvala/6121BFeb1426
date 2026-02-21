@@ -49,6 +49,8 @@ void Left7BallDescore();
 
 void Inverse12C();
 
+void LowInverse3Plus4();
+
 void Left7BallPush();
 
 void Left4BallRush();
