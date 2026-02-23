@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "RightInverse",
+    "project_name": "Skillz",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -426,7 +426,7 @@
     "upload_options": {
       "description": "vex robotics",
       "icon": "pros",
-      "slot": 1
+      "slot": 8
     },
     "use_early_access": false
   }
