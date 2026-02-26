@@ -677,91 +677,97 @@ void Inverse3Plus4(){
 
   chassis.odom_xyt_set(0_in, 0_in, 0_deg); // resets odom position every so often
   
-  chassis.pid_drive_set(30_in, DRIVE_SPEED*0.95, true);  // moves towards triple balls
-  chassis.pid_wait_until(10_in);
-  chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
-  chassis.pid_wait_until(17.5_in);
-  matchloaderActive(true);
-  pros::delay(50);
-  chassis.pid_wait_until(27.5_in);
-  chassis.pid_speed_max_set(DRIVE_SPEED);
-  chassis.pid_wait();
+  // chassis.pid_drive_set(30_in, DRIVE_SPEED*0.95, true);  // moves towards triple balls
+  // chassis.pid_wait_until(10_in);
+  // chassis.pid_speed_max_set(DRIVE_SPEED*0.75);
+  // chassis.pid_wait_until(14.5_in);
+  // matchloaderActive(true);
+  // pros::delay(50);
+  // chassis.pid_wait_until(27.5_in);
+  // chassis.pid_speed_max_set(DRIVE_SPEED);
+  // chassis.pid_wait();
 
-  matchloaderInactive(true);
+  // matchloaderInactive(true);
   
 
-  chassis.pid_turn_set(-103_deg, TURN_SPEED, false); // turn to matchloader area
-  chassis.pid_wait_quick_chain();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  // chassis.pid_turn_set(-103_deg, TURN_SPEED, false); // turn to matchloader area
+  // chassis.pid_wait_quick();
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(31_in, DRIVE_SPEED, true);  // lurch to matchloader
-  chassis.pid_wait();
+  // chassis.pid_drive_set(29_in, DRIVE_SPEED, true);  // lurch to matchloader
+  // chassis.pid_wait();
 
-  chassis.pid_turn_set(-55_deg, TURN_SPEED, false); // turn to matchloader
-  chassis.pid_wait_quick_chain();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  // chassis.pid_turn_set(-56_deg, TURN_SPEED, false); // turn to matchloader
+  // chassis.pid_wait_quick();
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  reverseScoring(false);
-  setAntiJam(true, true);
+  // reverseScoring(false);
+  // setAntiJam(true, true);
 
-  chassis.pid_drive_set(-20.5_in, DRIVE_SPEED, true);
-  pros::delay(320);
+  // chassis.pid_drive_set(-20.5_in, DRIVE_SPEED, true);
+  // pros::delay(290);
 
-  chassis.pid_turn_chain_constant_set(3_deg);
-  chassis.pid_drive_chain_constant_set(3_in);
+  // chassis.pid_turn_chain_constant_set(3_deg);
+  // chassis.pid_drive_chain_constant_set(3_in);
 
-  matchloaderActive(true);
+  // matchloaderActive(true);
 
 
-  scoreHigh(true); // scores in the high goal
-  pros::delay(990); 
-
-  
-
-  setAntiJam(false, false);
-
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  chassis.pid_drive_set(32_in, DRIVE_SPEED, true); 
-  chassis.pid_wait_until(16_in);
-  reverseScoring(true);
-  intake(true);
-  chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
-  pros::delay(835);
-
-  chassis.pid_drive_set(-11_in, DRIVE_SPEED, true); //moves toward the goal to do final score
-  chassis.pid_wait();
-
-  matchloaderInactive(true);
-
-  chassis.pid_turn_set(45_deg, TURN_SPEED, false); // turn to matchloader
-  chassis.pid_wait();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-  
-  chassis.pid_drive_set(-50.5_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
-  chassis.pid_wait();
-
-  middleGoalPiston(true);
-  scoreMid(true, false);
-
-  pros::delay(600);
-
-  middleGoalPiston(false);
-  scoreMid(false, false);
+  // scoreHigh(true); // scores in the high goal
+  // pros::delay(990); 
 
   
-  chassis.pid_drive_set(7_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
-  chassis.pid_wait_quick_chain();
 
-  midDescoreToggle();
+  // setAntiJam(false, false);
 
-  chassis.pid_drive_set(-7.25_in, DRIVE_SPEED, true);  // lurch to matchload area
-  chassis.pid_wait_quick_chain();
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  // chassis.pid_drive_set(32_in, DRIVE_SPEED, true); 
+  // chassis.pid_wait_until(16_in);
+  // reverseScoring(true);
+  // intake(true);
+  // chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
+  // pros::delay(775);
+
+  // chassis.pid_drive_set(-11_in, DRIVE_SPEED, true); //moves toward the goal to do final score
+  // chassis.pid_wait();
+
+  // matchloaderInactive(true);
+
+  // chassis.pid_turn_set(46_deg, TURN_SPEED, false); // turn to matchloader
+  // chassis.pid_wait();
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  
+  // chassis.pid_drive_set(-51.5_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
+  // chassis.pid_wait();
+
+  // middleGoalPiston(true);
+  // scoreMid(true, false);
+
+  // pros::delay(600);
+
+  // middleGoalPiston(false);
+  // scoreMid(false, false);
+
+  
+  // chassis.pid_drive_set(7_in, DRIVE_SPEED*0.9, true);  // lurch to matchload area
+  // chassis.pid_wait_quick_chain();
+
+  // midDescoreToggle();
+
+  // chassis.pid_drive_set(-7.25_in, DRIVE_SPEED, true);  // lurch to matchload area
+  // chassis.pid_wait_quick_chain();
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
 
+  chassis.pid_drive_set(18_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
+  chassis.drive_set(DRIVE_SPEED*0.9, DRIVE_SPEED*0.0);
+  pros::delay(500);
+  chassis.drive_set(0, 0);
 
- 
 
 }
 
@@ -1977,47 +1983,47 @@ void progSkills75(){
 
 
 void SOAP(){
-  // chassis.pid_turn_chain_constant_set(2_deg);
-  // chassis.pid_drive_chain_constant_set(2_in);
-  // setMatch(false);
-  // setAntiJam(false, false);
+  chassis.pid_turn_chain_constant_set(2_deg);
+  chassis.pid_drive_chain_constant_set(2_in);
+  setMatch(false);
+  setAntiJam(false, false);
 
-  // intake(true); // turns on intake
-
-
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg); // resets odom position every so often
+  intake(true); // turns on intake
 
 
-  // // // first long goal scoring
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg); // resets odom position every so often
 
-  // chassis.pid_drive_set(32_in,DRIVE_SPEED*0.9,true); // drive off the park area
-  // chassis.pid_wait();
+
+  // // first long goal scoring
+
+  chassis.pid_drive_set(33_in,DRIVE_SPEED*0.9,true); // drive off the park area
+  chassis.pid_wait();
   
-  // intake(true);
+  intake(true);
 
-  // chassis.pid_turn_set(90_deg,TURN_SPEED*0.9,false); // turn towards the matchloader
-  // chassis.pid_wait();
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  chassis.pid_turn_set(90_deg,TURN_SPEED*0.9,false); // turn towards the matchloader
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  // matchloaderActive(true);
+  matchloaderActive(true);
 
-  // chassis.pid_drive_set(-5_in,DRIVE_SPEED,true);
-  // chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-5_in,DRIVE_SPEED,true);
+  chassis.pid_wait_quick_chain();
 
-  // chassis.pid_drive_set(11.75_in,DRIVE_SPEED*0.65,true); // move into first matchloader to empty
-  // pros::delay(970); // manual timeout for speed
+  chassis.pid_drive_set(11.75_in,DRIVE_SPEED*0.65,true); // move into first matchloader to empty
+  pros::delay(970); // manual timeout for speed
 
-  // chassis.pid_drive_set(-32_in,DRIVE_SPEED,true); // align with goal-check
-  // pros::delay(760);
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  chassis.pid_drive_set(-32_in,DRIVE_SPEED,true); // align with goal-check
+  pros::delay(760);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  // matchloaderInactive(true);
-  // scoreHigh(true);  // score for the first time
-  // pros::delay(830);
+  matchloaderInactive(true);
+  scoreHigh(true);  // score for the first time
+  pros::delay(830);
 
-  // turnOffScoring(true);
+  turnOffScoring(true);
 
-  // intake(true);
+  turnOffLower(true);
 
 
   //OLD SAWP NEED TO DELETE
@@ -2109,7 +2115,7 @@ void SOAP(){
 
   intake(true);
 
-  chassis.pid_drive_set(69_in, DRIVE_SPEED*0.6, true);
+  chassis.pid_drive_set(69_in, DRIVE_SPEED*0.65, true);
   chassis.pid_wait_until(3.5_in);
   //matchloaderActive(true);
   pros::delay(250);
