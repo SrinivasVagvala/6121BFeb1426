@@ -90,3 +90,6 @@ void soloAWP();
 void Right4Plus6();
 
 void DistanceSensorTest();
+
+void SingleSideSOAP();
+

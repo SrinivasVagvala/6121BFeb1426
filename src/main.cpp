@@ -190,7 +190,7 @@ void autonomous() {
   // -----------------------------
 
   // ------- SOAPS --------
- // SOAP();
+  SOAP();
   // ----------------------
   //------------
 
@@ -201,7 +201,7 @@ void autonomous() {
   //LowInverse3Plus4();
   //Right4Plus6();
   //progSkills75();
-  progSkills81();
+  //progSkills81();
 
   // ----------------------------
 
