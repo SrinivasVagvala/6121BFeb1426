@@ -190,14 +190,14 @@ void autonomous() {
   // -----------------------------
 
   // ------- SOAPS --------
-  //SOAP();
+  SOAP();
   // ----------------------
   //------------
 
   // ---------- Long + Middle -----------
   //Left3Plus4();
   //Inverse12C();
-  Inverse3Plus4(); 
+  //Inverse3Plus4(); 
   //LowInverse3Plus4();
   //Right4Plus6();
   //progSkills75();

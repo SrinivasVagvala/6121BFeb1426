@@ -140,7 +140,7 @@ void MiddleGoalScoreSkills(bool state){
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-0.70);//120 for matches 70 for skills
+        lowerintake.move(lowerVelocity*-0.65);//120 for matches 65 for skills
         scoring.move(scoringVelocity*1.27);
 
     }
@@ -181,7 +181,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ //midgoal
-            scoring.move(scoringVelocity*-1.27*0.68);// 68 for skills 90 for regular
+            scoring.move(scoringVelocity*-1.27*0.66);// 66 for skills 90 for regular
             lowerintake.move(lowerVelocity*1.27);
 
             descore.retract();
