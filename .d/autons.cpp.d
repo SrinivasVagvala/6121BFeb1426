@@ -142,7 +142,8 @@ bin/autons.cpp.o: src/autons.cpp include/EZ-Template/drive/drive.hpp \
  include/usr/intake.hpp include/usr/descore.hpp include/usr/matchload.hpp \
  include/autons.hpp include/subsystems.hpp include/pros/distance.hpp \
  include/usr/globals.hpp include/usr/intake.hpp include/usr/descore.hpp \
- include/usr/matchload.hpp include/usr/middlegoal.hpp
+ include/usr/matchload.hpp include/usr/middlegoal.hpp \
+ include/usr/quadsensor.hpp
 include/EZ-Template/drive/drive.hpp:
 include/EZ-Template/PID.hpp:
 include/EZ-Template/util.hpp:
@@ -387,3 +388,4 @@ include/usr/intake.hpp:
 include/usr/descore.hpp:
 include/usr/matchload.hpp:
 include/usr/middlegoal.hpp:
+include/usr/quadsensor.hpp:

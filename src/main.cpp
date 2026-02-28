@@ -177,7 +177,7 @@ void autonomous() {
 
   // ---------- 7 Balls -----------
   //Left7BallDescore();
- // Right7BallDescore();
+  //Right7BallDescore();
   //Right7BallPush();
   //Left7BallPush();
   // --------------------------------------
@@ -198,16 +198,16 @@ void autonomous() {
   //Left3Plus4();
   //Inverse12C();
   //Inverse3Plus4(); 
-  LowInverse3Plus4();
+  //LowInverse3Plus4();
   //Right4Plus6();
   //progSkills75();
-  //progSkills81();
+  progSkills81();
 
   // ----------------------------
 
   // ------- 4 Ball Rush --------
-  //Left4BallRush();
   //Right4BallRush();
+  //Left4BallRush();
   // ----------------------------
 
   // --------------------------- TEST AUTOS --------------------------------------------

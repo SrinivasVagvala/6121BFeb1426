@@ -115,8 +115,8 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
 
 void scoreLow(bool state){
     if (state){
-        lowerintake.move(autonLowerVelocity*-1.27);
-        scoring.move(autonScoringVelocity*1.27);
+        lowerintake.move(autonLowerVelocity*-1.27*0.75);
+        scoring.move(autonScoringVelocity*1.27*0.75);
     }
     else{
         lowerintake.move(0);
@@ -140,7 +140,7 @@ void MiddleGoalScoreSkills(bool state){
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-0.65);//120 for matches 65 for skills
+        lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
         scoring.move(scoringVelocity*1.27);
 
     }
