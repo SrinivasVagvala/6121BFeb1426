@@ -128,8 +128,8 @@ void scoreLow(bool state){
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        scoring.move(autonScoringVelocity*-1.27*0.65);
-        lowerintake.move(autonLowerVelocity*1.27*0.65);
+        scoring.move(autonScoringVelocity*-1.27*0.9);
+        lowerintake.move(autonLowerVelocity*1.27*0.9);
     }
     else{
         lowerintake.move(0);
