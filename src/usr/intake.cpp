@@ -5,6 +5,7 @@
 #include "pros/misc.h"
 #include <sys/_intsup.h>
 #include "middlegoal.hpp"
+#include "pros/rtos.hpp"
 
 pros::Motor lowerintake(LOWER_INTAKE);
 pros::Motor scoring(TOP_INTAKE);
@@ -17,6 +18,9 @@ extern pros::adi::Pneumatics descore;
 pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
 
 extern pros::Distance frontD;
+extern pros::Distance backD;
+extern pros::Distance leftD;
+extern pros::Distance rightD;
 
 
 bool redTeam = true; // true signifies red team, so color sorting blue, and vice versa if false
@@ -139,6 +143,8 @@ void MiddleGoalScoreSkills(bool state){
 }
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
+    
+
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
         lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
         scoring.move(scoringVelocity*1.27);
@@ -390,24 +396,21 @@ void setAntiJam(bool state, bool antiS){
 void intakeTask(void* parameter) {
     lowerintake.tare_position();
     scoring.tare_position();
+
     
     while (true) {
+        
+            
+        
         if (!pros::competition::is_autonomous()) { // if the intake is not in the autonomous state ex: op control
+
             lowerintake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
             scoring.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
             intakeOpControl();
-            //heatSensingControl();
+            
 
-            // master.clear();
-
-            // pros::delay(50);
 
             scoringJam();
-
-            // master.print(0,0,"Front: %i",frontD.get());
-
-            // pros::delay(1000);
-
             
         
             

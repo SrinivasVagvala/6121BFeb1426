@@ -8,10 +8,10 @@
 #define TOP_INTAKE 18
 
 
-#define FRONTDISTANCE 10
+#define FRONTDISTANCE 6
 #define BACKDISTANCE 20
-#define LEFTDISTANCE 19
-#define RIGHTDISTANCE 9
+#define LEFTDISTANCE 20
+#define RIGHTDISTANCE 21
 
 #define MATCHLOAD 'B'
 #define WING 'C' 
