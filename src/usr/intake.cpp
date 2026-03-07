@@ -117,6 +117,19 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
     }
 }
 
+void fastSkillsMidScore(bool state){ // sometimes need extake
+    if (state){
+        scoring.move(autonScoringVelocity*-1.27*0.8);
+        lowerintake.move(autonLowerVelocity*1.27);
+
+    }
+    else{
+        lowerintake.move(0);
+        scoring.move(0);
+
+    }
+}
+
 void scoreLow(bool state){
     if (state){
         lowerintake.move(autonLowerVelocity*-1.27*0.75);
@@ -148,29 +161,40 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
         lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
         scoring.move(scoringVelocity*1.27);
-
+        
     }
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
         stopScoring = false;   
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
-        buttonDone = true;
 
-        
-        lowerintake.move(lowerVelocity*1.27);
-        
+        // comment out in matches only for skills 
 
-        if (stopScoring == false){
-            scoring.move(scoringVelocity*-1.27);
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // slow midgoal scoring
+            scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
+            lowerintake.move(lowerVelocity*1.27*0.95);
+
+            descore.retract();
+
         }
-        else {
-            scoring.move(0);
+        else { // normal intaking
+            buttonDone = true;
+
+            
+            lowerintake.move(lowerVelocity*1.27);
+            
+
+            if (stopScoring == false){
+                scoring.move(scoringVelocity*-1.27);
+            }
+            else {
+                scoring.move(0);
+            }
+
+            
+            descore.extend();
+            scorePiston.extend();
         }
-
-        
-        descore.extend();
-        scorePiston.extend();
-
     }
     else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone ){
 
@@ -186,9 +210,9 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ //midgoal
-            scoring.move(scoringVelocity*-1.27*0.66);// 66 for skills 90 for regular
-            lowerintake.move(lowerVelocity*1.27);
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
+            scoring.move(scoringVelocity*-1.27*0.58);// 65 for skills 90 for regular
+            lowerintake.move(lowerVelocity*1.27*0.9); // 90 for skills 127 for regular
 
             descore.retract();
 

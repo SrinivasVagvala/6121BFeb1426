@@ -22,7 +22,7 @@ void reverseScoring(bool state); // done
 void scoreHigh(bool state); // done
 void scoreMid(bool state, bool useExtake); // done
 void scoreLow(bool state); // done
-
+void fastSkillsMidScore(bool state); // done
 
 void MiddleGoalScoreSkills(bool state); // done
 
