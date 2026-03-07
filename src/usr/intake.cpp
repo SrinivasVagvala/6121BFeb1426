@@ -159,7 +159,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     
 
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
+        lowerintake.move(lowerVelocity*-1.2);//120 for matches 70 for skills
         scoring.move(scoringVelocity*1.27);
         
     }
