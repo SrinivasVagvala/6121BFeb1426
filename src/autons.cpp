@@ -2681,9 +2681,9 @@ void progSkills79(){
   middleGoalPiston(true);
 
   MiddleGoalScoreSkills(true);
-  pros::delay(500); // delay for mid score
+  pros::delay(300); // delay for mid score
   fastSkillsMidScore(true);
-  pros::delay(800);
+  pros::delay(1000);
 
   middleGoalPiston(false);
   fastSkillsMidScore(false);
@@ -2777,7 +2777,7 @@ void progSkills79(){
   extake(true);
   pros::delay(100);
   scoreHigh(true);
-  pros::delay(1400);
+  pros::delay(1475);
   scoreHigh(false);
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
@@ -2905,7 +2905,7 @@ void progSkills79(){
   extake(true);
   pros::delay(100);
   scoreHigh(true);
-  pros::delay(1400);
+  pros::delay(1475);
   scoreHigh(false);
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 

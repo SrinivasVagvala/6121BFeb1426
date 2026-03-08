@@ -118,7 +118,7 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
 
 void fastSkillsMidScore(bool state){ // sometimes need extake
     if (state){
-        scoring.move(autonScoringVelocity*-1.27*0.7);
+        scoring.move(autonScoringVelocity*-1.27*0.75);
         lowerintake.move(autonLowerVelocity*1.27);
 
     }
@@ -144,8 +144,8 @@ void scoreLow(bool state){
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        scoring.move(autonScoringVelocity*-1.27*0.3);
-        lowerintake.move(autonLowerVelocity*1.27*0.3);
+        scoring.move(autonScoringVelocity*-1.27*0.5);
+        lowerintake.move(autonLowerVelocity*1.27);
     }
     else{
         lowerintake.move(0);
