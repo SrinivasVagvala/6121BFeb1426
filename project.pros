@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Lef7",
+    "project_name": "Left7",
     "target": "v5",
     "templates": {
       "EZ-Template": {

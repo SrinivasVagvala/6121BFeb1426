@@ -845,7 +845,7 @@ void LowInverse3Plus4(){
   intake(true);
   turnOffScoring(true);
   chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
-  pros::delay(775);
+  pros::delay(755);
 
   chassis.pid_drive_set(-9_in, DRIVE_SPEED, true); //moves toward the goal to do final score
   chassis.pid_wait_until(-5.5_in);
@@ -869,10 +869,10 @@ void LowInverse3Plus4(){
 
   turnOffScoring(true);
 
-  chassis.pid_drive_set(-32_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-31.5_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick();
 
-  chassis.pid_turn_set(-135_deg, TURN_SPEED, false);
+  chassis.pid_turn_set(-138_deg, TURN_SPEED, false);
   chassis.pid_wait_quick_chain();
 
   wingToggle();
@@ -958,7 +958,7 @@ void Right7BallDescore(){
   chassis.pid_drive_set(-12.5_in, DRIVE_SPEED, true); // drive out of goal
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_turn_set(41.5_deg, TURN_SPEED, false); // turn to be parallel with goal
+  chassis.pid_turn_set(40_deg, TURN_SPEED, false); // turn to be parallel with goal
   chassis.pid_wait_quick_chain();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
@@ -1090,7 +1090,7 @@ void Left7BallDescore(){
   chassis.pid_drive_set(30.5_in, DRIVE_SPEED, true);  // lurch to matchloader
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-59.5_deg, TURN_SPEED, false); // turn to matchloader
+  chassis.pid_turn_set(-56.5_deg, TURN_SPEED, false); // turn to matchloader
   chassis.pid_wait_quick();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
@@ -1098,12 +1098,12 @@ void Left7BallDescore(){
   setAntiJam(true, true);
 
   
-  chassis.pid_drive_set(28_in, DRIVE_SPEED, true); 
+  chassis.pid_drive_set(28.5_in, DRIVE_SPEED, true); 
   chassis.pid_wait_until(12_in);
   reverseScoring(true);
   intake(true);
   chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
-  pros::delay(755);
+  pros::delay(790);
 
   chassis.pid_drive_set(-32.5_in, DRIVE_SPEED, true); //moves toward the goal to do final score
   pros::delay(820);
