@@ -81,7 +81,7 @@ void initialize() {
   pros::Task matchloader_task(matchloaderTask);
   pros::Task middlegoal_task(middleGoalTask);
   pros::Task macro_task(macroTask);
-  pros::Task pos_task(posTask);
+  //pros::Task pos_task(posTask);
 
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
@@ -188,6 +188,8 @@ void autonomous() {
   //progSkills75();
   //progSkills81();
   //progSkills96();
+  progSkills79();
+  
   // chassis.drive_set(DRIVE_SPEED, DRIVE_SPEED);
   // pros::delay(500);
   // chassis.drive_set(0,0);
@@ -206,7 +208,7 @@ void autonomous() {
   //Right4Plus6();
   //progSkills75();
   //progSkills81();
-  progSkills83();
+  //progSkills83();
 
   // ----------------------------
 

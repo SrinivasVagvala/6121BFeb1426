@@ -79,7 +79,7 @@ void progSkills81();
 
 void progSkills75();
 
-void progSkills83();
+void progSkills79();
 
 void progSkill75Stoptime();
 

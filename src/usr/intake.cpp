@@ -17,11 +17,10 @@ extern pros::adi::Pneumatics descore;
 
 pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
 
-extern pros::Distance frontD;
-extern pros::Distance backD;
-extern pros::Distance leftD;
-extern pros::Distance rightD;
-
+pros::Distance frontD(FRONTDISTANCE);
+pros::Distance backD(BACKDISTANCE);
+pros::Distance leftD(LEFTDISTANCE);
+pros::Distance rightD(RIGHTDISTANCE);
 
 bool redTeam = true; // true signifies red team, so color sorting blue, and vice versa if false
 bool match = false;
@@ -119,7 +118,7 @@ void scoreMid(bool state, bool useExtake){ // sometimes need extake
 
 void fastSkillsMidScore(bool state){ // sometimes need extake
     if (state){
-        scoring.move(autonScoringVelocity*-1.27*0.8);
+        scoring.move(autonScoringVelocity*-1.27*0.7);
         lowerintake.move(autonLowerVelocity*1.27);
 
     }
@@ -145,8 +144,8 @@ void scoreLow(bool state){
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        scoring.move(autonScoringVelocity*-1.27*0.9);
-        lowerintake.move(autonLowerVelocity*1.27*0.9);
+        scoring.move(autonScoringVelocity*-1.27*0.3);
+        lowerintake.move(autonLowerVelocity*1.27*0.3);
     }
     else{
         lowerintake.move(0);
@@ -455,17 +454,14 @@ void intakeTask(void* parameter) {
 
             
 
-            // master.clear();
+            master.clear();
 
-            // pros::delay(50);
+            pros::delay(50);
 
-            // master.print(0,0,"Front: %i",frontD.get() - 287);
+            master.print(0,0,"Front: %i",frontD.get());
 
-            // pros::delay(50);
+            pros::delay(100);
 
-            // master.print(1,0,"Back: %i",backD.get() - 104);
-
-            // pros::delay(1000);
 
         }
 
