@@ -176,7 +176,7 @@ void autonomous() {
 
 
   // ---------- 7 Balls -----------
-  //Left7BallDescore();
+  Left7BallDescore();
   //Right7BallDescore();
   //Right7BallPush();
   //Left7BallPush();
@@ -188,7 +188,7 @@ void autonomous() {
   //progSkills75();
   //progSkills81();
   //progSkills96();
-  progSkills79();
+  //progSkills79();
   
   // chassis.drive_set(DRIVE_SPEED, DRIVE_SPEED);
   // pros::delay(500);

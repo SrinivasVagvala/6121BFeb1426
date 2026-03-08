@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Auton Gooning",
+    "project_name": "Lef7",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -425,8 +425,8 @@
     },
     "upload_options": {
       "description": "vex robotics",
-      "icon": "pros",
-      "slot": 1
+      "icon": "X",
+      "slot": 4
     },
     "use_early_access": false
   }
