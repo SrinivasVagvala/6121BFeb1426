@@ -158,7 +158,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     
 
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-1.2);//120 for matches 70 for skills
+        lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
         scoring.move(scoringVelocity*1.27);
         
     }
@@ -167,16 +167,16 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
-        // comment out in matches only for skills 
+        //comment out in matches only for skills 
 
-        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // slow midgoal scoring
-        //     scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
-        //     lowerintake.move(lowerVelocity*1.27*0.95);
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // slow midgoal scoring
+            scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
+            lowerintake.move(lowerVelocity*1.27*0.95);
 
-        //     descore.retract();
+            descore.retract();
 
-        // }
-        // else { // normal intaking
+        }
+        else { // normal intaking
             buttonDone = true;
 
             
@@ -193,7 +193,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             
             descore.extend();
             scorePiston.extend();
-        //}
+        }
     }
     else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone ){
 
@@ -210,8 +210,8 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
-            scoring.move(scoringVelocity*-1.27*0.9);// 58 for skills 90 for regular
-            lowerintake.move(lowerVelocity*1.27); // 90 for skills 127 for regular
+            scoring.move(scoringVelocity*-1.27*0.58);// 58 for skills 90 for regular
+            lowerintake.move(lowerVelocity*0.9); // 90 for skills 127 for regular
 
             descore.retract();
 

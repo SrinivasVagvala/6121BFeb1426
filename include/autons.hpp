@@ -95,3 +95,5 @@ void DistanceSensorTest();
 
 void SingleSideSOAP();
 
+void progSkills83States();
+
