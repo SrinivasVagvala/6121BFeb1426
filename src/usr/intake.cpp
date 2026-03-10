@@ -144,7 +144,7 @@ void scoreLow(bool state){
 
 void MiddleGoalScoreSkills(bool state){
     if(state){
-        scoring.move(autonScoringVelocity*-1.27*0.5);
+        scoring.move(autonScoringVelocity*-1.27*0.55);
         lowerintake.move(autonLowerVelocity*1.27);
     }
     else{
@@ -171,7 +171,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // slow midgoal scoring
             scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
-            lowerintake.move(lowerVelocity*1.27*0.95);
+            lowerintake.move(lowerVelocity*1.27*1);
 
             descore.retract();
 
@@ -211,7 +211,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
             scoring.move(scoringVelocity*-1.27*0.58);// 58 for skills 90 for regular
-            lowerintake.move(lowerVelocity*0.9); // 90 for skills 127 for regular
+            lowerintake.move(lowerVelocity*0.95); // 90 for skills 127 for regular
 
             descore.retract();
 
