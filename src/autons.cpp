@@ -839,9 +839,6 @@ void Inverse3Plus4(){
 }
 
 void LowInverse3Plus4(){
-  chassis.pid_turn_chain_constant_set(2_deg);
-  chassis.pid_drive_chain_constant_set(2_in);
-
   setMatch(false);
   setAntiJam(false, false);
   wingToggle();
@@ -854,50 +851,43 @@ void LowInverse3Plus4(){
   matchloaderActive(true);
   chassis.pid_wait_until(27.5_in);
   chassis.pid_speed_max_set(DRIVE_SPEED);
-  chassis.pid_wait();
+  pros::delay(650);
 
   
 
-  chassis.pid_turn_set(105_deg, TURN_SPEED, false); // turn to matchloader area
-  chassis.pid_wait();
+  chassis.pid_turn_set(102_deg, TURN_SPEED, false); // turn to matchloader area
+  pros::delay(580);
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);  // lurch to matchloader
-  chassis.pid_wait();
+  chassis.pid_drive_set(30.5_in, DRIVE_SPEED, true);  // lurch to matchloader
+  pros::delay(830);
 
   chassis.pid_turn_set(59_deg, TURN_SPEED, false); // turn to matchloader
   chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
   reverseScoring(false);
-  setAntiJam(true, true);
 
   chassis.pid_drive_set(-20.5_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-1_in);
   scoreHigh(true);
-  pros::delay(200);
+  pros::delay(1120);
 
   chassis.pid_turn_chain_constant_set(3_deg);
   chassis.pid_drive_chain_constant_set(3_in);
 
 
-
-  pros::delay(920); 
-
-
-  setAntiJam(false, false);
-
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(32.2_in, DRIVE_SPEED, true); 
+  chassis.pid_drive_set(35.2_in, DRIVE_SPEED, true); 
   chassis.pid_wait_until(16_in);
   intake(true);
   turnOffScoring(true);
   chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
-  pros::delay(755);
+  chassis.pid_wait();
 
   chassis.pid_drive_set(-9_in, DRIVE_SPEED, true); //moves toward the goal to do final score
-  chassis.pid_wait_until(-5.5_in);
+  chassis.pid_wait_until(-7_in);
   intake(false);
   chassis.pid_wait();
 
@@ -926,7 +916,7 @@ void LowInverse3Plus4(){
 
   wingToggle();
 
-  chassis.pid_drive_set(-25_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
 }
@@ -2267,6 +2257,7 @@ void SingleSideSOAP(){
 
 }
 
+
 void progSkills96(){
 
   setMatch(false); // initializes to turn off color sort and anti-jam to reduce inconsistency
@@ -2480,7 +2471,7 @@ void progSkills96(){
   chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   matchloaderActive(true);
