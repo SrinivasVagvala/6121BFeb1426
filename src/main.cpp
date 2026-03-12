@@ -187,8 +187,8 @@ void autonomous() {
   //progSkills51();
   //progSkills75();
   //progSkills81();
-  //progSkills96();
-  progSkills79();
+  progSkills96();
+  //progSkills79();
   //progSkills83States();
   
   // chassis.drive_set(DRIVE_SPEED, DRIVE_SPEED);
