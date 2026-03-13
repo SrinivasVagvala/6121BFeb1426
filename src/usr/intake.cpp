@@ -158,7 +158,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     
 
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-0.7);//120 for matches 70 for skills
+        lowerintake.move(lowerVelocity*-0.75);//120 for matches 75 for skills
         scoring.move(scoringVelocity*1.27);
         
     }
@@ -211,7 +211,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
             scoring.move(scoringVelocity*-1.27*0.58);// 58 for skills 90 for regular
-            lowerintake.move(lowerVelocity*0.9); // 90 for skills 127 for regular
+            lowerintake.move(lowerVelocity*1); // 100 for skills 127 for regular
 
             descore.retract();
 
@@ -454,13 +454,13 @@ void intakeTask(void* parameter) {
 
             
 
-            // master.clear();
+            master.clear();
 
-            // pros::delay(50);
+            pros::delay(50);
 
-            // master.print(0,0,"Front: %i",frontD2.get());
+            master.print(0,0,"Front: %i",frontD.get());
 
-            // pros::delay(100);
+            pros::delay(100);
 
 
         }
