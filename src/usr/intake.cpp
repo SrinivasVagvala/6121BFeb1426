@@ -454,13 +454,13 @@ void intakeTask(void* parameter) {
 
             
 
-            master.clear();
+            // master.clear();
 
-            pros::delay(50);
+            // pros::delay(50);
 
-            master.print(0,0,"Front: %i",frontD2.get());
+            // master.print(0,0,"Front: %i",frontD2.get());
 
-            pros::delay(100);
+            // pros::delay(100);
 
 
         }
