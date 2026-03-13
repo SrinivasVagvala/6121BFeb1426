@@ -18,7 +18,7 @@ extern pros::adi::Pneumatics descore;
 pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
 
 pros::Distance frontD(FRONTDISTANCE);
-pros::Distance backD(BACKDISTANCE);
+pros::Distance frontD2(NEWFRONTDISTANCE);
 pros::Distance leftD(LEFTDISTANCE);
 pros::Distance rightD(RIGHTDISTANCE);
 
@@ -454,13 +454,13 @@ void intakeTask(void* parameter) {
 
             
 
-            // master.clear();
+            master.clear();
 
-            // pros::delay(50);
+            pros::delay(50);
 
-            // master.print(0,0,"Front: %i",frontD.get());
+            master.print(0,0,"Front: %i",frontD2.get());
 
-            // pros::delay(100);
+            pros::delay(100);
 
 
         }
