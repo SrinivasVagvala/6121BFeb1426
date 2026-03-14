@@ -71,6 +71,8 @@ void Left3Plus4();
 
 void Left3Plus4Push();
 
+void testHeadingCorrect();
+
 void TEST();
 
 void progSkills96();
