@@ -176,7 +176,7 @@ void autonomous() {
 
 
   // ---------- 7 Balls -----------
-  //Left7BallDescore();
+  Left7BallDescore();
   //Right7BallDescore();
   //Right7BallPush();
   //Left7BallPush();
@@ -187,7 +187,7 @@ void autonomous() {
   //progSkills51();
   //progSkills75();
   //progSkills81();
-  progSkills96();
+  //progSkills96();
   //progSkills79();
   //progSkills83States();
   

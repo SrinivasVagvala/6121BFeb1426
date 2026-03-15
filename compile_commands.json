@@ -36,11 +36,11 @@
             "--std=gnu++20",
             "-Wno-deprecated-enum-enum-conversion",
             "-o",
-            "bin/main.cpp.o",
-            "src\\main.cpp"
+            "bin/autons.cpp.o",
+            "src\\autons.cpp"
         ],
         "directory": "C:\\Users\\srini\\OneDrive\\Desktop\\6121BFeb1426",
-        "file": "src\\main.cpp"
+        "file": "src\\autons.cpp"
     },
     {
         "arguments": [
@@ -79,10 +79,10 @@
             "--std=gnu++20",
             "-Wno-deprecated-enum-enum-conversion",
             "-o",
-            "bin/autons.cpp.o",
-            "src\\autons.cpp"
+            "bin/main.cpp.o",
+            "src\\main.cpp"
         ],
         "directory": "C:\\Users\\srini\\OneDrive\\Desktop\\6121BFeb1426",
-        "file": "src\\autons.cpp"
+        "file": "src\\main.cpp"
     }
 ]
