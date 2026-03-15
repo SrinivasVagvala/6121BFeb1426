@@ -1116,11 +1116,13 @@ void Left7BallDescore(){
 
 
   chassis.pid_turn_set(-106_deg, TURN_SPEED, false); // turn to matchloader area
-  pros::delay(600);
+  pros::delay(630);
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(33_in, DRIVE_SPEED, true);  // lurch to matchloader
-  pros::delay()
+  chassis.pid_drive_set(32_in, DRIVE_SPEED, true);  // lurch to matchloader
+  pros::delay(840);
+
+  pros::delay(50);
 
   chassis.pid_turn_set(-54.5_deg, TURN_SPEED, false); // turn to matchloader
   chassis.pid_wait();
@@ -1135,7 +1137,7 @@ void Left7BallDescore(){
   reverseScoring(true);
   intake(true);
   chassis.pid_speed_max_set(DRIVE_SPEED*0.2);
-  chassis.pid_wait();
+  pros::delay(600);
 
   chassis.pid_drive_set(-29.5_in, DRIVE_SPEED, true); //moves toward the goal to do final score
   pros::delay(660);
@@ -1167,10 +1169,10 @@ void Left7BallDescore(){
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
   
-  chassis.pid_drive_set(-18_in, DRIVE_SPEED, true); // drive out of goal
+  chassis.pid_drive_set(-19_in, DRIVE_SPEED, true); // drive out of goal
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_turn_set(140_deg, TURN_SPEED, false); // turn to be parallel with goal
+  chassis.pid_turn_set(135_deg, TURN_SPEED, false); // turn to be parallel with goal
   chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
