@@ -31,6 +31,8 @@ void turnOffScoring(bool state); // done
 void turnLoweratXSpeed(bool state,int speed); // done
 void turnScoringatXSpeed(bool state, int speed); // done
 
+void scoringJam();
+void midJam();
 
 void antiJam(bool direction);
 

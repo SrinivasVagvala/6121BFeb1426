@@ -6,7 +6,6 @@
 #include "middlegoal.hpp"
 #include "pros/rtos.hpp"
 
-extern pros::adi::Pneumatics scorePiston;
 extern pros::adi::Pneumatics midDescore;
 
 extern bool ball_lock;   
@@ -28,7 +27,6 @@ void middleGoalOpControl(){
 
         ball_lock = true;
 
-        scorePiston.retract();
     }
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){ // middle goal descore
         midDescore.retract();
@@ -41,18 +39,14 @@ void middleGoalOpControl(){
     if (not master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && not master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
 
         ball_lock = false;
-        
-        
-        scorePiston.extend();   
+         
     }
     
 }
 void middleGoalPiston(bool state){ // done
     if(state){
-        scorePiston.retract();
     }
     else{
-        scorePiston.extend();
     }
 }
 

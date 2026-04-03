@@ -5,7 +5,8 @@
 
 
 #define LOWER_INTAKE 19
-#define TOP_INTAKE 18
+#define MIDDLE_INTAKE 1
+#define TOP_INTAKE 2
 
 
 #define FRONTDISTANCE 6

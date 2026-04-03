@@ -1,21 +1,22 @@
 #include "EZ-Template/util.hpp"
 #include "globals.hpp"
 #include "main.h"
+#include "pros/adi.h"
 #include "pros/adi.hpp"
 #include "pros/misc.h"
 #include <sys/_intsup.h>
 #include "middlegoal.hpp"
 #include "pros/rtos.hpp"
 
-pros::Motor lowerintake(LOWER_INTAKE);
-pros::Motor scoring(TOP_INTAKE);
+pros::Motor lowerintake(LOWER_INTAKE); // positive is extake, negative is intake
+pros::Motor scoring(TOP_INTAKE); // positive is scoring, negative is extaking and middle goal
+pros::Motor middle(MIDDLE_INTAKE); // positive is extake, negative is intake 
 
-pros::adi::Pneumatics scorePiston(SCORING, true, true); // 
 
-extern pros::adi::Pneumatics middleGoal;
 extern pros::adi::Pneumatics descore;
 
-pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
+pros::adi::Pneumatics midDescore(MIDDESCORE, false, false);
+pros::adi::Pneumatics scorePiston(SCORING, false, false);
 
 pros::Distance frontD(FRONTDISTANCE);
 pros::Distance frontD2(NEWFRONTDISTANCE);
@@ -29,6 +30,8 @@ bool antiJamOn = false;
 bool antiState = false;
 
 bool stopScoring = false;
+bool stopMiddle = false;
+bool stopMiddleLow = false;
 bool ball_lock = false;
 
 bool buttonDone = false;
@@ -39,6 +42,7 @@ int intakeStuckTime = 0;
 
 int lowerVelocity = 100;
 int scoringVelocity = 100;
+int midVelocity = 100;
 
 
 int overHeatTemp = 55; // temperature at which the motor is considered overheated
@@ -62,8 +66,7 @@ void intake(bool state){
         scoring.move(autonScoringVelocity*-1.27);
         lowerintake.move(autonLowerVelocity*1.27);
         
-        descore.extend();
-        scorePiston.extend();
+        scorePiston.retract();
     }
     else{
         lowerintake.move(0);
@@ -83,13 +86,10 @@ void scoreHigh(bool state){
         scoring.move(autonScoringVelocity*-1.27);
         lowerintake.move(autonLowerVelocity*1.27);
 
-        descore.retract();
 
         scorePiston.extend();
     }
 }
-
-
 
 void scoreMid(bool state, bool useExtake){ // sometimes need extake
     if (state){
@@ -140,8 +140,6 @@ void scoreLow(bool state){
     }
 }
 
-
-
 void MiddleGoalScoreSkills(bool state){
     if(state){
         scoring.move(autonScoringVelocity*-1.27*0.55);
@@ -158,9 +156,14 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     
 
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        lowerintake.move(lowerVelocity*-1.2);//120 for matches 75 for skills
-        scoring.move(scoringVelocity*1.27);
         
+        lowerintake.move(lowerVelocity*1.27);
+            
+        middle.move(midVelocity*1.27);
+            
+        scoring.move(scoringVelocity*-1.27);
+
+
     }
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
         stopScoring = false;   
@@ -173,62 +176,86 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         // //     scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
         // //     lowerintake.move(lowerVelocity*1.27*1);
 
-        // //     descore.retract();
-
         // }
         // else { // normal intaking
             buttonDone = true;
 
             
-            lowerintake.move(lowerVelocity*1.27);
+            lowerintake.move(lowerVelocity*-1.27);
             
+            if (stopMiddle == false){
+                middle.move(midVelocity*-1.27);
+            }
+            else{
+                middle.move(0);
+            }
 
             if (stopScoring == false){
-                scoring.move(scoringVelocity*-1.27);
+                scoring.move(scoringVelocity*1.27);
             }
             else {
                 scoring.move(0);
             }
 
             
-            descore.extend();
-            scorePiston.extend();
+            scorePiston.retract();
        ///}
     }
     else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone ){
 
-        lowerintake.move(lowerVelocity*1.27);
+        lowerintake.move(lowerVelocity*-1.27);
         
+        if (stopMiddle == false){
+            middle.move(midVelocity*-1.27);
+        }
+        else{
+            middle.move(0);
+        }
 
         if (stopScoring == false){
-            scoring.move(scoringVelocity*-1.27);
+            scoring.move(scoringVelocity*1.27);
         }
         else {
             scoring.move(0);
         }
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ // scoring
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
-            scoring.move(scoringVelocity*-1.27*0.90);// 58 for skills 90 for regular
-            lowerintake.move(lowerVelocity*1.27); // 100 for skills 127 for regular
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ //long goal
 
-            descore.retract();
-
-        }
-        else { //long goal
-            scoring.move(scoringVelocity*-1.27);
-            lowerintake.move(lowerVelocity*1.27);
-
-            descore.retract();
-
-            scorePiston.extend();
-        }
+        scoring.move(scoringVelocity*1.27);
+        lowerintake.move(lowerVelocity*-1.27);
+        middle.move(midVelocity*-1.27);
+        scorePiston.extend();
 
     }
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
+
+        middle.move(midVelocity*1.27);
+            
+        lowerintake.move(scoringVelocity*1.27);
+
+        pros::delay(200);
+
+    }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+            scoring.move(scoringVelocity*-1.27);
+
+            if (stopMiddleLow == false){
+                lowerintake.move(lowerVelocity*-1.27);
+                middle.move(midVelocity*-1.27*0.75);
+            }
+            else {
+                // lowerintake.move(0);
+                // middle.move(0);
+            }
+    
+
+    }
+
     else {
         lowerintake.move(0);
         scoring.move(0);
+        middle.move(0);
         buttonDone = false;
     }
 
@@ -407,6 +434,50 @@ void scoringJam(){
 
             stopScoring = true;
             intakeStuckTime = 0;
+        }
+    }
+}
+
+
+void midJam(){
+    if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "stop scoring");
+            master.rumble("-");
+            middle.move(0);
+
+            stopMiddle = true;
+            intakeStuckTime = 0;
+        }
+    }
+}
+
+void middleScoreJam(){
+    
+    if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "stop scoring");
+            master.rumble("-");
+            middle.move(midVelocity*1.27);
+            lowerintake.move(lowerVelocity*1.27);
+
+            stopMiddleLow = true;
+
+            pros::delay(100);
+            
+            stopMiddleLow = false;
+            intakeStuckTime = 0;
+
         }
     }
 }
