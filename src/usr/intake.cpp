@@ -228,25 +228,26 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         scorePiston.extend();
 
     }
-    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // fast midgoal scoring
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // needs to extake balls a bit for the middle goal scoring
 
-        middle.move(midVelocity*1.27);
+        middle.move(midVelocity*1.27*0.55);
             
-        lowerintake.move(scoringVelocity*1.27);
+        lowerintake.move(scoringVelocity*1.27*0.45);
+
+        scoring.move(scoringVelocity*-1.27);
 
         pros::delay(200);
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring
             scoring.move(scoringVelocity*-1.27);
 
             if (stopMiddleLow == false){
-                lowerintake.move(lowerVelocity*-1.27);
-                middle.move(midVelocity*-1.27*0.75);
+                lowerintake.move(lowerVelocity*-1.17);
+                middle.move(midVelocity*-0.77);
             }
             else {
-                // lowerintake.move(0);
-                // middle.move(0);
+                
             }
     
 
@@ -276,13 +277,13 @@ void heatSensingControl() {
     // chassis temperature code
 
     // left sides
-    int LF = chassis.left_motors[-1].get_temperature();
-    int LM = chassis.left_motors[-2].get_temperature();
-    int LB = chassis.left_motors[-3].get_temperature();
+    int LF = chassis.left_motors[5].get_temperature();
+    int LM = chassis.left_motors[-6].get_temperature();
+    int LB = chassis.left_motors[7].get_temperature();
     // right sides
-    int RF = chassis.right_motors[11].get_temperature();
-    int RM = chassis.right_motors[12].get_temperature();
-    int RB = chassis.right_motors[13].get_temperature();
+    int RF = chassis.right_motors[8].get_temperature();
+    int RM = chassis.right_motors[-9].get_temperature();
+    int RB = chassis.right_motors[10].get_temperature();
 
     if (LF >= overHeatTemp) {
         master.print(2,0,"Left Front Overheated");
@@ -334,41 +335,6 @@ void turnScoringatXSpeed(bool state, int speed){
     if (state){
         scoring.move(speed*-1);
     }
-}
-
-void matchLoadSorting() {
-
-    // int lowerOptical_bright = 75;
-
-    // lowerOptical.set_led_pwm(lowerOptical_bright);
-
-    // double hue2 = lowerOptical.get_hue();
-    
-    // master.print(0,0,"Hue   %f",hue2);
-
-    // // benchmark values for each ring, for each parameter
-    // double bHue = 46;
-
-    // double rHue = 40;
-
-
-    
-    // if ((hue2 > bHue) && redTeam) { 
-    // master.print(0,0,"BLU"); 
-    // lowerintake.move(autonLowerVelocity*-1);
-    // pros::delay(300);
-    // lowerintake.move(autonLowerVelocity*1);    
-    // }
-
-    // else if((hue2 < rHue) && !redTeam){
-    // master.print(0,0,"RED");
-    // lowerintake.move(autonLowerVelocity*-1);
-    // pros::delay(340);
-    // lowerintake.move(autonLowerVelocity*1);
-    // }
-    
-
-     
 }
 
 void antiJam(bool direction){// intake is true
@@ -512,7 +478,7 @@ void intakeTask(void* parameter) {
         else if (pros::competition::is_autonomous()) {
             //heatSensingControl();
             if(lowerintake.get_actual_velocity() > 0 and match){
-                matchLoadSorting();
+                
             }
             if(antiJamOn){
                 if(antiState){

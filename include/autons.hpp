@@ -27,57 +27,15 @@ void square();
 
 void macroTask(void* parameter);
 
-void testIntake();
-
 void testPID();
 
-void Inverse3Plus4();
-
-// void DistanceReset(float distance, int speed);
-
-// void DistanceResetTest();
-
-void Left9BallAuton();
-
-void Right9BallAuton();
-
-void Left8BallAuton();
-
-void Right8BallAuton();
-
-void Left7BallDescore();
-
-void Inverse12C();
-
-void LowInverse3Plus4();
-
-void Left7BallPush();
-
-void Left4BallRush();
-
-void Right4BallRush();
-
-void Right7BallDescore();
-
-void Right7BallPush();
-
-void SOAP();
-
-void MomAndDadAreFighting();
-
 void Left2Plus7();
-
-void Left3Plus4();
 
 void Left3Plus4Push();
 
 void testHeadingCorrect();
 
 void TEST();
-
-void progSkills96();
-
-void progSkills81();
 
 void progSkills75();
 
@@ -91,6 +49,8 @@ void safeSkills();
 
 void soloAWP();
 
+void SOAP();
+
 void Right4Plus6();
 
 void DistanceSensorTest();
@@ -98,4 +58,57 @@ void DistanceSensorTest();
 void SingleSideSOAP();
 
 void progSkills83States();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// worlds autos
+
+
+void RightInverse4();
+
+void LeftInverse4();
+
+void Left4BallMidRush();
+
+void Right4BallMidRush();
+
+void Right6Plus3();
+
+void Left6Plus3();
+
+void Left3Plus4();
+
+void Right3Plus4();
+
+void Inverse3Plus4();
+
+void LowInverse3Plus4();
+
+void SoapLong();
+
+void SoapMid();
+
+void Left4BallRush();
+
+void Right4BallRush();
+
+void Left7BallDescore();
+
+void Right7BallDescore();
+
+void progSkills96();
+
+void progSkills81();
 
