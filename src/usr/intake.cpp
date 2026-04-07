@@ -244,7 +244,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.77);
+                middle.move(midVelocity*-0.67);
             }
             else {
                 
@@ -387,7 +387,7 @@ void antiJam(bool direction){// intake is true
 }
 
 void scoringJam(){
-    if (fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
     //     master.print(0,0, "start scoring");
 
         if (intakeStuckTime == 0) {
@@ -397,11 +397,54 @@ void scoringJam(){
             master.print(0,0, "stop scoring");
             master.rumble("-");
             scoring.move(0);
+            middle.move(0);
 
             stopScoring = true;
             intakeStuckTime = 0;
         }
     }
+
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "hahhhahha");
+            master.rumble("-");
+            middle.move(0);
+            scoring.move(0);
+
+            stopMiddle = true;
+            intakeStuckTime = 0;
+        }
+    }
+
+    
+    
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000){
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "testing new scoring");
+            master.rumble("-");
+
+            middle.move(100);
+            scoring.move(100);
+
+            pros::delay(400);
+
+            middle.move(-100);
+            scoring.move(-100);
+        }
+
+
+
+
+    }
+
 }
 
 
