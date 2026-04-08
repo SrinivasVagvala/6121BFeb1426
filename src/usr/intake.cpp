@@ -171,14 +171,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
         //comment out in matches only for skills 
-
-        // // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // slow midgoal scoring
-        // //     scoring.move(scoringVelocity*-1.27*0.535); // slow scoring for mid goal
-        // //     lowerintake.move(lowerVelocity*1.27*1);
-
-        // }
-        // else { // normal intaking
-            buttonDone = true;
+        //             buttonDone = true;
 
             
             lowerintake.move(lowerVelocity*-1.27);
@@ -250,6 +243,17 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
                 
             }   
 
+    }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+            scoring.move(scoringVelocity*1.07);
+
+            if (stopMiddleLow == false){
+                lowerintake.move(lowerVelocity*-1.17);
+                middle.move(midVelocity*-0.67);
+            }
+            else {
+                
+            } 
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
         
