@@ -232,20 +232,20 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         pros::delay(200);
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring
-            scoring.move(scoringVelocity*1.27);
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
+    //         scoring.move(scoringVelocity*1.27);
 
-            if (stopMiddleLow == false){
-                lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.87);
-            }
-            else {
+    //         if (stopMiddleLow == false){
+    //             lowerintake.move(lowerVelocity*-1.17);
+    //             middle.move(midVelocity*-0.82);
+    //         }
+    //         else {
                 
-            }   
+    //         }   
 
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
-            scoring.move(scoringVelocity*1.07);
+    // }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
+            scoring.move(scoringVelocity*0.47);
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
