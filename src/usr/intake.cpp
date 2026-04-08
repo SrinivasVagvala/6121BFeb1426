@@ -161,7 +161,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             
         middle.move(midVelocity*1.27);
             
-        scoring.move(scoringVelocity*-1.27);
+        scoring.move(scoringVelocity*1.27);
 
 
     }
@@ -191,7 +191,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             }
 
             if (stopScoring == false){
-                scoring.move(scoringVelocity*1.27);
+                scoring.move(scoringVelocity*-1.27);
             }
             else {
                 scoring.move(0);
@@ -213,7 +213,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         }
 
         if (stopScoring == false){
-            scoring.move(scoringVelocity*1.27);
+            scoring.move(scoringVelocity*-1.27);
         }
         else {
             scoring.move(0);
@@ -222,7 +222,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ //long goal
 
-        scoring.move(scoringVelocity*1.27);
+        scoring.move(scoringVelocity*-1.27);
         lowerintake.move(lowerVelocity*-1.27);
         middle.move(midVelocity*-1.27);
         scorePiston.extend();
@@ -234,23 +234,30 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             
         lowerintake.move(scoringVelocity*1.27*0.45);
 
-        scoring.move(scoringVelocity*-1.27);
+        scoring.move(scoringVelocity*1.27);
 
         pros::delay(200);
 
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring
-            scoring.move(scoringVelocity*-1.27);
+            scoring.move(scoringVelocity*1.27);
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.67);
+                middle.move(midVelocity*-0.87);
             }
             else {
                 
-            }
-    
+            }   
 
+    }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
+        
+        scoring.move(scoringVelocity*-1.27*0.5);
+        lowerintake.move(lowerVelocity*1.27*0.3);
+        middle.move(midVelocity*1.27*0.3);
+
+        
     }
 
     else {
@@ -367,7 +374,7 @@ void antiJam(bool direction){// intake is true
         else if (pros::millis() - intakeStuckTime > 200 && direction) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            scoring.move(autonScoringVelocity);
+            scoring.move(autonScoringVelocity*-1);
             pros::delay(100);
             scoring.move(-1 * autonScoringVelocity);
             intakeStuckTime = 0;
@@ -376,9 +383,9 @@ void antiJam(bool direction){// intake is true
         else if (pros::millis() - intakeStuckTime > 200 && direction == false) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            scoring.move(autonScoringVelocity*-1);
-            pros::delay(100);
             scoring.move(autonScoringVelocity);
+            pros::delay(100);
+            scoring.move(autonScoringVelocity*-1);
             intakeStuckTime = 0;
         }
         
@@ -432,17 +439,23 @@ void scoringJam(){
             master.rumble("-");
 
             middle.move(100);
-            scoring.move(100);
+            scoring.move(-100);
 
             pros::delay(400);
 
             middle.move(-100);
-            scoring.move(-100);
+            scoring.move(100);
         }
 
 
 
 
+    }
+    else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && stopScoring == true) {
+        stopScoring = false;
+    }
+    else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && stopMiddle == true) {
+        stopMiddle = false;
     }
 
 }
