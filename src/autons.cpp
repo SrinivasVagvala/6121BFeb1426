@@ -2872,7 +2872,7 @@ void Right4BallMidRush(){
   chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true);  // align with goal
   chassis.pid_wait();
 
-  chassis.pid_turn_set(116_deg, TURN_SPEED, false); // turn to middle goal
+  chassis.pid_turn_set(-116_deg, TURN_SPEED, false); // turn to middle goal
   chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
