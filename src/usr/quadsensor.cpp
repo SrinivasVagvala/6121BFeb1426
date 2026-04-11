@@ -1,64 +1,76 @@
-// #include "main.h"
-// #include "quadsensor.hpp"
-
-
-// // RobotPos rohan;
-
-
-
-// pros::Distance frontD(FRONTDISTANCE);
-// pros::Distance backD(BACKDISTANCE);
-// pros::Distance leftD(LEFTDISTANCE);
-// pros::Distance rightD(RIGHTDISTANCE);
+#include "EZ-Template/util.hpp"
+#include "main.h"
+#include "quadsensor.hpp"
 
 
 
 
-// void posTask(void* parameter) {
+
+pros::Distance frontD(FRONTDISTANCE);
+pros::Distance backD(BACKDISTANCE);
+pros::Distance leftD(LEFTDISTANCE);
+pros::Distance rightD(RIGHTDISTANCE);
+
+
+bool useF = true, useR = true; // decides if using front or back distance sensor, and right or left distance sensor
+
+float x = 0, y = 0; // x and y for putting into odom.xyt.reset()
+
+float dFV = 0, dFR = 0; // dfv is distance from vertical wall, we are assuming vertical wall is front so we will calculate it if its back, same thing with dfR but for right wall
+
+void posTask(void* parameter) {
 
 
 
-//     while (true) {
+    while (true) {
 
-//         if (!pros::competition::is_autonomous()) {
+        if (!pros::competition::is_autonomous()) {
 
-//             master.print(0,0,"Front: %i",frontD.get());
+            master.print(0,0,"Front: %i",frontD.get());
 
-//             posOpControl();
+            posOpControl();
 
-//         }
+        }
          
-//         pros::delay(10); 
-//     }
-// }
+        pros::delay(10); 
+    }
+}
 
 
 
-// void posOpControl() {
-// }
+void posOpControl() {
+    getLocation();
+}
+
+void getLocation() {
+    int frontDistance = frontD.get();
+    int backDistance = backD.get();
+    int leftDistance = leftD.get();
+    int rightDistance = rightD.get();
+
+    if (frontDistance > 3000) {
+        useF = false;
+        master.print(0,0, "D: %i", backDistance);
+    }
+    else {
+        useF = true;
+        master.print(0,0, "D: %i", frontDistance);
+    }
+
+    if (rightDistance > 3000) {
+        useR = false;
+        master.print(0,0, "D: %i", leftDistance);
+    }
+    else {
+        useR = true;
+        master.print(0,0, "D: %i", rightDistance);
+    }
+
+    
+    
 
 
 
-// void distanceCorrection(int targetD, int distFromWall, int speed, SensorSide side) {
+    
+}
 
-//     chassis.pid_drive_set(targetD, speed, true);
-//     chassis.pid_wait();
-
-//     if (side == FRONT) {
-//         float dtm = frontD.get() - distFromWall;
-
-//         chassis.pid_drive_set(dtm, speed, true);
-//         chassis.pid_wait();
-//     }
-//     else if (side == BACK) {
-//         float dtm = backD.get() - distFromWall;
-
-//         chassis.pid_drive_set(dtm, speed, true);
-//         chassis.pid_wait();
-//     } 
-
-// }
-
-// void quadSensorReset() {
-//     //chassis.odom_xyt_set((double)rohan.X[0], (double)rohan.X[1], (double)rohan.X[2]);
-// }

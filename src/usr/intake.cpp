@@ -12,16 +12,16 @@ pros::Motor lowerintake(LOWER_INTAKE); // positive is extake, negative is intake
 pros::Motor scoring(TOP_INTAKE); // positive is scoring, negative is extaking and middle goal
 pros::Motor middle(MIDDLE_INTAKE); // positive is extake, negative is intake 
 
-
+    
 extern pros::adi::Pneumatics descore;
 
 pros::adi::Pneumatics midDescore(MIDDESCORE, false, false);
-pros::adi::Pneumatics scorePiston(SCORING, false, false);
+pros::adi::Pneumatics hood(HOOD, false, false);
 
-pros::Distance frontD(FRONTDISTANCE);
-pros::Distance frontD2(NEWFRONTDISTANCE);
-pros::Distance leftD(LEFTDISTANCE);
-pros::Distance rightD(RIGHTDISTANCE);
+// pros::Distance frontD(FRONTDISTANCE);
+// pros::Distance backD(BACKDISTANCE);
+// pros::Distance leftD(LEFTDISTANCE);
+// pros::Distance rightD(RIGHTDISTANCE);
 
 bool redTeam = true; // true signifies red team, so color sorting blue, and vice versa if false
 bool match = false;
@@ -66,7 +66,7 @@ void intake(bool state){
         scoring.move(autonScoringVelocity*-1.27);
         lowerintake.move(autonLowerVelocity*1.27);
         
-        scorePiston.retract();
+        hood.retract();
     }
     else{
         lowerintake.move(0);
@@ -87,7 +87,7 @@ void scoreHigh(bool state){
         lowerintake.move(autonLowerVelocity*1.27);
 
 
-        scorePiston.extend();
+        hood.extend();
     }
 }
 
@@ -191,7 +191,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             }
 
             
-            scorePiston.retract();
+            hood.retract();
        ///}
     }
     else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone ){
@@ -218,7 +218,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         scoring.move(scoringVelocity*-1.27);
         lowerintake.move(lowerVelocity*-1.27);
         middle.move(midVelocity*-1.27);
-        scorePiston.extend();
+        hood.extend();
 
     }
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // needs to extake balls a bit for the middle goal scoring
@@ -232,29 +232,29 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         pros::delay(200);
 
     }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
-    //         scoring.move(scoringVelocity*1.27);
-
-    //         if (stopMiddleLow == false){
-    //             lowerintake.move(lowerVelocity*-1.17);
-    //             middle.move(midVelocity*-0.82);
-    //         }
-    //         else {
-                
-    //         }   
-
-    // }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
-            scoring.move(scoringVelocity*0.47);
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
+            scoring.move(scoringVelocity*1.27);
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.67);
+                middle.move(midVelocity*-0.82);
             }
             else {
                 
-            } 
+            }   
+
     }
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
+    //         scoring.move(scoringVelocity*0.47);
+
+    //         if (stopMiddleLow == false){
+    //             lowerintake.move(lowerVelocity*-1.17);
+    //             middle.move(midVelocity*-0.67);
+    //         }
+    //         else {
+                
+    //         } 
+    // }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
         
         scoring.move(scoringVelocity*-1.27*0.5);
@@ -263,7 +263,6 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         
     }
-
     else {
         lowerintake.move(0);
         scoring.move(0);

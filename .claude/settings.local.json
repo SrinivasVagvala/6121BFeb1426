@@ -1,0 +1,10 @@
+{
+  "ANTHROPIC_BASE_URL": "https://openrouter.ai/api/v1",
+  "ANTHROPIC_AUTH_TOKEN": "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",
+  "ANTHROPIC_DEFAULT_SONNET_MODEL": "nvidia/nemotron-3-super-120b-a12b:free",
+  "ANTHROPIC_DEFAULT_OPUS_MODEL": "nvidia/llama-nemotron-embed-vl-1b-v2:free",
+  "ANTHROPIC_DEFAULT_HAIKU_MODEL": "google/gemma-4-31b-it:free",
+  "CLAUDE_CODE_SKIP_FAST_MODE_ORG_CHECK": "1",
+  "CLAUDE_CODE_MAX_TOKENS": 1500,
+  "CLAUDE_CODE_MAX_INPUT_TOKENS": 4000
+}
