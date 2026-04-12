@@ -15,7 +15,7 @@ pros::Motor middle(MIDDLE_INTAKE); // positive is extake, negative is intake
     
 extern pros::adi::Pneumatics descore;
 
-pros::adi::Pneumatics midDescore(MIDDESCORE, false, false);
+pros::adi::Pneumatics midDescore(MIDDESCORE, true, true);
 pros::adi::Pneumatics hood(HOOD, false, false);
 
 // pros::Distance frontD(FRONTDISTANCE);
@@ -165,15 +165,8 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
 
     }
-    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
-        stopScoring = false;   
-    }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
-        //comment out in matches only for skills 
-        //             buttonDone = true;
-
-            
             lowerintake.move(lowerVelocity*-1.27);
             
             if (stopMiddle == false){
@@ -187,7 +180,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
                 scoring.move(scoringVelocity*-1.27);
             }
             else {
-                scoring.move(0);
+                //scoring.move(0);
             }
 
             
@@ -209,8 +202,14 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             scoring.move(scoringVelocity*-1.27);
         }
         else {
-            scoring.move(0);
+            //scoring.move(0);
         }
+    }
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){ // low goal extake for 50 mils before long scoring
+
+        lowerintake.move(lowerVelocity*1.27);
+
+        pros::delay(50);
 
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) ){ //long goal
@@ -222,6 +221,8 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
     }
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // needs to extake balls a bit for the middle goal scoring
+
+        midDescore.extend();
 
         middle.move(midVelocity*1.27*0.55);
             
@@ -355,40 +356,32 @@ void antiJam(bool direction){// intake is true
         else if (pros::millis() - intakeStuckTime > 20 && direction) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            lowerintake.move(autonLowerVelocity*-1);
-            pros::delay(50);
-            lowerintake.move(autonLowerVelocity);
+            lowerintake.move(0);
             intakeStuckTime = 0;
         }
         else if (pros::millis() - intakeStuckTime > 20 && direction==false) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            lowerintake.move(autonLowerVelocity);
-            pros::delay(50);
-            lowerintake.move(autonLowerVelocity*-1);
+            lowerintake.move(0);
             intakeStuckTime = 0;
         }
     }
 
-    if (fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
         if (intakeStuckTime == 0) {
             intakeStuckTime = pros::millis();
         }
         else if (pros::millis() - intakeStuckTime > 200 && direction) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            scoring.move(autonScoringVelocity*-1);
-            pros::delay(100);
-            scoring.move(-1 * autonScoringVelocity);
+            scoring.move(0);
             intakeStuckTime = 0;
         }
 
         else if (pros::millis() - intakeStuckTime > 200 && direction == false) {
             master.print(0,0, "This happens");
             master.rumble("-");
-            scoring.move(autonScoringVelocity);
-            pros::delay(100);
-            scoring.move(autonScoringVelocity*-1);
+            scoring.move(0);
             intakeStuckTime = 0;
         }
         
@@ -404,10 +397,9 @@ void scoringJam(){
             intakeStuckTime = pros::millis();
         }
         else if (pros::millis() - intakeStuckTime > 200) {
-            master.print(0,0, "stop scoring");
+            master.print(0,0, "slow scoring");
             master.rumble("-");
-            scoring.move(0);
-            middle.move(0);
+            scoring.move(scoringVelocity*-0.1);
 
             stopScoring = true;
             intakeStuckTime = 0;
@@ -426,6 +418,7 @@ void scoringJam(){
             middle.move(0);
             scoring.move(0);
 
+            stopScoring = true;
             stopMiddle = true;
             intakeStuckTime = 0;
         }
@@ -464,7 +457,7 @@ void scoringJam(){
 }
 
 
-void midJam(){
+void midJam(){ // istn called
     if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
     //     master.print(0,0, "start scoring");
 
@@ -482,7 +475,7 @@ void midJam(){
     }
 }
 
-void middleScoreJam(){
+void middleScoreJam(){ // isnt called
     
     if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
     //     master.print(0,0, "start scoring");
@@ -493,16 +486,8 @@ void middleScoreJam(){
         else if (pros::millis() - intakeStuckTime > 200) {
             master.print(0,0, "stop scoring");
             master.rumble("-");
-            middle.move(midVelocity*1.27);
-            lowerintake.move(lowerVelocity*1.27);
-
-            stopMiddleLow = true;
-
-            pros::delay(100);
+            middle.move(0);
             
-            stopMiddleLow = false;
-            intakeStuckTime = 0;
-
         }
     }
 }

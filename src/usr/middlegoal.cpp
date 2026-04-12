@@ -32,7 +32,7 @@ void middleGoalOpControl(){
         midDescore.retract();
     }
     
-    if (not master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+    if (! master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
         midDescore.extend();
     }
     

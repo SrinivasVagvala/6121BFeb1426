@@ -175,6 +175,8 @@ void autonomous() {
   // --------------------------- MATCH AUTOS --------------------------------------------
 
 
+  // ----- 2 inch auto -----
+  //TwoInch();
   // ---------- 7 Balls -----------
   Left7BallDescore();
   //Right7BallDescore();
