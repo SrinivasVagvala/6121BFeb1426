@@ -51,6 +51,8 @@ int overHeatTemp = 55; // temperature at which the motor is considered overheate
 int autonLowerVelocity = 100;
 int autonScoringVelocity = 100;
 
+bool tester = true; // call Srinivas if you want to ask abt this variable
+
 void reverseScoring(bool state){
     if (state){
         scoring.move(autonScoringVelocity*1.27);
@@ -222,7 +224,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
     }
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){ // needs to extake balls a bit for the middle goal scoring
 
-        midDescore.extend();
+        // midDescore.extend();
 
         middle.move(midVelocity*1.27*0.55);
             
@@ -232,6 +234,8 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         pros::delay(200);
 
+        tester = true;
+
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
             scoring.move(scoringVelocity*1.27);
@@ -240,9 +244,6 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
                 lowerintake.move(lowerVelocity*-1.17);
                 middle.move(midVelocity*-0.82);
             }
-            else {
-                
-            }   
 
     }
     // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
@@ -264,11 +265,13 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         
     }
+
     else {
         lowerintake.move(0);
         scoring.move(0);
         middle.move(0);
         buttonDone = false;
+        tester = false;
     }
 
 }

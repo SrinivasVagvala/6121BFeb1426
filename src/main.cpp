@@ -178,7 +178,7 @@ void autonomous() {
   // ----- 2 inch auto -----
   //TwoInch();
   // ---------- 7 Balls -----------
-  Left7BallDescore();
+  //Left7BallDescore();
   //Right7BallDescore();
   //Right7BallPush();
   //Left7BallPush();
