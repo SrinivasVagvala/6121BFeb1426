@@ -231,7 +231,18 @@ void autonomous() {
   //tuningDrivePID();
   //square();
   //tuningTurnPID();
-  //testPID();
+  // setAntiJamActiveWorlds(true);
+  // turnScoringatXSpeed(true,127);
+  // turnLoweratXSpeed(true,127);
+  // turnMiddleatXSpeed(true,127);
+
+
+  // pros::delay(10000);
+
+  // turnScoringatXSpeed(true,127);
+  // turnLoweratXSpeed(true,127);
+  // turnMiddleatXSpeed(true,127);
+
 
   
 

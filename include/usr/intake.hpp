@@ -40,6 +40,14 @@ void setAntiJam(bool state, bool antiS);
 
 
 
+void setAntiJamActiveWorlds(bool state);
+
+void autonAntiJam();
+
+void turnMiddleatXSpeed(bool state, int speed);
+
+
+
 
 
 

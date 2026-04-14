@@ -53,7 +53,7 @@ void default_constants() {
 
   // kP 20 kD 100 for driving
   // turn in place constants are kP 4 and kD 23.0 and kI 0.05, then 15.0
-  chassis.pid_drive_constants_set(16, 0.0, 169);         // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_drive_constants_set(14, 0.0, 155);         // Fwd/rev constants, used for odom and non odom motions
   chassis.pid_heading_constants_set(15.5, 0.0, 27);        // Holds the robot straight while going forward without odom
   chassis.pid_turn_constants_set(4.75, 0.05, 28.0, 10.0);     // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
@@ -507,37 +507,38 @@ void testIntake(){
 }
 
 void testPID(){
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  // chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-  // chassis.pid_wait();
-
-  // chassis.pid_turn_set(90_deg, TURN_SPEED, false);
-  // chassis.pid_wait();
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  // chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-  // chassis.pid_wait();
-
-  // chassis.pid_turn_set(90_deg, TURN_SPEED, false);
-  // chassis.pid_wait();
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  // chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-  // chassis.pid_wait();
-
-  // chassis.pid_turn_set(90_deg, TURN_SPEED, false);
-  // chassis.pid_wait();
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  // chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-  // chassis.pid_wait();
-
-  // chassis.pid_turn_set(90_deg, TURN_SPEED, false);
-  // chassis.pid_wait();
-
-  chassis.pid_turn_set(-45_deg, TURN_SPEED, false);
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+
+
+  chassis.pid_turn_set(90_deg, TURN_SPEED, false);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(90_deg, TURN_SPEED, false);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(90_deg, TURN_SPEED, false);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(90_deg, TURN_SPEED, false);
+  chassis.pid_wait();
+
+  // chassis.pid_turn_set(-45_deg, TURN_SPEED, false);
+  // chassis.pid_wait();
 
   // pros::delay(50);
 

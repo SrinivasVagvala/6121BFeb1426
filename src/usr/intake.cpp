@@ -53,6 +53,8 @@ int autonScoringVelocity = 100;
 
 bool tester = true; // call Srinivas if you want to ask abt this variable
 
+bool AntiJamActiveWorlds = false; 
+
 void reverseScoring(bool state){
     if (state){
         scoring.move(autonScoringVelocity*1.27);
@@ -341,13 +343,19 @@ void turnOffScoring(bool state){
 
 void turnLoweratXSpeed(bool state,int speed){
     if (state){
-        lowerintake.move(speed);
+        lowerintake.move(-1*speed);
     }
 }
 
 void turnScoringatXSpeed(bool state, int speed){
     if (state){
         scoring.move(speed*-1);
+    }
+}
+
+void turnMiddleatXSpeed(bool state, int speed){
+    if (state){
+        middle.move(speed*-1);
     }
 }
 
@@ -428,7 +436,6 @@ void scoringJam(){
     }
 
     
-    
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000){
         if (intakeStuckTime == 0) {
             intakeStuckTime = pros::millis();
@@ -444,6 +451,30 @@ void scoringJam(){
 
             middle.move(-100);
             scoring.move(100);
+
+            intakeStuckTime = 0;
+        }
+
+
+
+
+    }
+
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && fabs(lowerintake.get_actual_velocity()) < 0.5 && fabs(lowerintake.get_voltage()) > 2000){
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "testing new scoring");
+            master.rumble("-");
+
+            lowerintake.move(127);
+
+            pros::delay(100);
+
+            lowerintake.move(-127);
+
+            intakeStuckTime = 0; 
         }
 
 
@@ -500,6 +531,90 @@ void setAntiJam(bool state, bool antiS){
     antiState = antiS;
 }
 
+void setAntiJamActiveWorlds(bool state){
+    AntiJamActiveWorlds = state;
+}
+
+void autonAntiJam(){
+    if (fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "slow scoring");
+            master.rumble("-");
+            scoring.move(scoringVelocity*-0.1);
+
+            stopScoring = true;
+            intakeStuckTime = 0;
+        }
+    }
+
+    else if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    //     master.print(0,0, "start scoring");
+
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "hahhhahha");
+            master.rumble("-");
+            middle.move(0);
+            scoring.move(0);
+
+            stopScoring = true;
+            stopMiddle = true;
+            intakeStuckTime = 0;
+        }
+    }
+
+    
+    else if (fabs(scoring.get_actual_velocity()) < 0.5 && fabs(scoring.get_voltage()) > 2000){
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "testing new scoring");
+            master.rumble("-");
+
+            middle.move(100);
+            scoring.move(-100);
+
+            pros::delay(400);
+
+            middle.move(-100);
+            scoring.move(100);
+        }
+
+
+
+
+    }
+
+    else if (fabs(lowerintake.get_actual_velocity()) < 0.5 && fabs(lowerintake.get_voltage()) > 2000){
+        if (intakeStuckTime == 0) {
+            intakeStuckTime = pros::millis();
+        }
+        else if (pros::millis() - intakeStuckTime > 200) {
+            master.print(0,0, "testing new scoring");
+            master.rumble("-");
+
+            lowerintake.move(127);
+
+            pros::delay(100);
+
+            lowerintake.move(-127);
+        }
+
+
+
+
+    }
+
+}
+
 void intakeTask(void* parameter) {
     lowerintake.tare_position();
     scoring.tare_position();
@@ -524,17 +639,17 @@ void intakeTask(void* parameter) {
         }
         else if (pros::competition::is_autonomous()) {
             //heatSensingControl();
-            if(lowerintake.get_actual_velocity() > 0 and match){
+            // if(lowerintake.get_actual_velocity() > 0 and match){
                 
-            }
-            if(antiJamOn){
-                if(antiState){
-                    antiJam(true);
-                }
-                else{
-                    antiJam(false);
-                }
-            }
+            // }
+            // if(antiJamOn){
+            //     if(antiState){
+            //         antiJam(true);
+            //     }
+            //     else{
+            //         antiJam(false);
+            //     }
+            // }
 
             
 
@@ -545,6 +660,11 @@ void intakeTask(void* parameter) {
             // master.print(0,0,"Front: %i",frontD.get());
 
             // pros::delay(100);
+
+            if(AntiJamActiveWorlds){
+                autonAntiJam();
+
+            }
 
 
         }
