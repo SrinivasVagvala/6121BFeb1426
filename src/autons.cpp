@@ -23,6 +23,10 @@ extern pros::Controller master;
 
 extern pros::Distance frontD;
 extern pros::Distance frontD2;
+
+
+extern pros::adi::Pneumatics midDescore;
+extern pros::adi::Pneumatics hood;
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -1947,17 +1951,27 @@ void progSkills79(){
 
 void testHeadingCorrect(){
   chassis.drive_imu_reset();  
+  double heading = chassis.drive_imu_get();
+  master.print(0, 0, "Heading: %f", heading);
+
 
 
   chassis.pid_turn_set(91_deg, TURN_SPEED, false);
   chassis.pid_wait();
 
-  double heading = chassis.drive_imu_get();
+  heading = chassis.drive_imu_get();
+
+
 
   chassis.odom_xyt_set(0_in, 0_in, heading * 1_deg);
 
+  pros::delay(1000);
+
+  master.print(1, 0, "Heading: %f", heading);
+
+
   chassis.pid_turn_set(90_deg, TURN_SPEED, false);
-  chassis.pid_wait();
+ chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
   chassis.pid_drive_set(69_in, DRIVE_SPEED*0.50, true);
@@ -2377,102 +2391,151 @@ void progSkills81(){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
 // worlds autos
 
 
 void SoapLong(){
   setMatch(false);
-  setAntiJam(false, false);
+  setAntiJamActiveWorlds(false);
 
-  intake(true); // turns on intake
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
 
+  
 
   chassis.odom_xyt_set(0_in, 0_in, 0_deg); // resets odom position every so often
 
 
   // // first long goal scoring
 
-  chassis.pid_drive_set(38_in,DRIVE_SPEED*0.9,true); // drive off the park area
-  pros::delay(950);
-  
-  intake(true);
+  chassis.pid_drive_set(-38.25_in,DRIVE_SPEED,true); // drive off the park area
+  // pros::delay(880);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
   matchloaderActive(true);
 
-  chassis.pid_turn_set(90_deg,TURN_SPEED*0.9,false); // turn towards the matchloader
+  chassis.pid_turn_set(88_deg,TURN_SPEED,false); // turn towards the matchloader
+  // pros::delay(540);
   chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
 
-  chassis.pid_drive_set(11.25_in,DRIVE_SPEED*0.70,true); // move into first matchloader to empty
-  pros::delay(900); // manual timeout for speed
-
-  chassis.pid_drive_set(-30.5_in,DRIVE_SPEED,true); // align with goal-check
-  chassis.pid_wait_until(-25_in);
-  scoreHigh(true);
-  pros::delay(700);
-  matchloaderInactive(true);
-  pros::delay(400);
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  intake(true);
-
-  chassis.pid_turn_set(91_deg, TURN_SPEED, false); // turn to triball after doing a turn off the goal
-  chassis.pid_wait();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  intake(true);
-
-  chassis.pid_drive_set(69_in, DRIVE_SPEED*0.60, true); // drive across and get 6 blocks
-  chassis.pid_wait();
-
-  chassis.pid_drive_set(-6_in, DRIVE_SPEED*0.9, true); // move back to be correct distance
-  chassis.pid_wait();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+  chassis.pid_drive_set(10_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  pros::delay(920);
 
 
-  chassis.pid_turn_set(-46_deg, TURN_SPEED, false); // turn to face middle goal
-  chassis.pid_wait();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  intake(false);
-  
-  chassis.pid_drive_set(-21.25_in, DRIVE_SPEED*0.75, true); // drive into middle goal
-  chassis.pid_wait_until(-18.5_in);
-
-
-  //start middle goal scoring
-
-  middleGoalPiston(true);
-  MiddleGoalScoreSkills(true);
-
-  pros::delay(825);
-
-  middleGoalPiston(false);
-  MiddleGoalScoreSkills(false);
-
-  reverseScoring(true);
-  intake(true);
-
-  //end middle goal scoring
-
-  chassis.pid_drive_set(52.3_in, DRIVE_SPEED*0.95, true); // lurch into goal/matchload area
-  pros::delay(1190);
-
-  matchloaderActive(true);
-
-  chassis.pid_turn_set(-47_deg, TURN_SPEED, false); // turn to face matchloader
-  chassis.pid_wait();
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  chassis.pid_drive_set(13.5_in,DRIVE_SPEED*0.8,true); // drive into matchloader and empty it
+  chassis.pid_drive_set(-31.5_in,DRIVE_SPEED,true); // align with goal-check
   pros::delay(900);
+  hood.extend();
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
+  matchloaderInactive(true);
+  pros::delay(675);
+  hood.retract();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+
+  // heading correct YAY
+
+
+  chassis.pid_turn_set(-92_deg, TURN_SPEED, false);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in,0_deg);
+
+  midDescore.retract();
+
+  // heading correct is tuff
+
+  // setAntiJamActiveWorlds(true);
+
+  chassis.pid_drive_set(69.5_in, DRIVE_SPEED*0.85, true); // drive across and get 6 blocks
+  chassis.pid_wait_until(56_in);
+  matchloaderActive(true);
+  chassis.pid_wait();
+
+
+
+  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true); // move back to be correct distance
+  chassis.pid_wait();
+
+
   
-  chassis.pid_drive_set(-36_in,DRIVE_SPEED*0.9,true); // move into goal to do final score
-  chassis.pid_wait_until(-20_in);
-  extake(true);
-  pros::delay(100);
-  scoreHigh(true);
+  chassis.pid_turn_set(-133_deg, TURN_SPEED, false); // turn to face low goal
+  chassis.pid_wait_until(-120_deg);
+  matchloaderInactive(true);
+  // pros::delay(600);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+
+
+    
+
+  turnScoringatXSpeed(true, -127);
+  turnLoweratXSpeed(true, -127);
+  turnMiddleatXSpeed(true, -127);
+
+
+  chassis.pid_drive_set(17.75_in, DRIVE_SPEED, true); // drive into low goal
+  chassis.pid_wait();
+
+  setAntiJamActiveWorlds(false);
+
+  //start low goal scoring
+
+
+
+
+  // score low
+  
+  pros::delay(200);
+
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true,127);
+  
+
+  
+  //end low goal scoring
+
+  chassis.pid_drive_set(-52_in, DRIVE_SPEED, true); // lurch into goal/matchload area
+  // pros::delay(1100);
+  chassis.pid_wait();
+  matchloaderActive(true);
+
+  chassis.pid_turn_set(-135_deg, TURN_SPEED, false); // turn to face matchloader
+  // pros::delay(850);
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(13.5_in,DRIVE_SPEED,true); // drive into matchloader and empty it
+  chassis.pid_wait();
+  
+  chassis.pid_drive_set(-31.5_in,DRIVE_SPEED,true); // align with goal-check
+  pros::delay(900);
+  hood.extend();
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
+  matchloaderInactive(true);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+
 
 }
 

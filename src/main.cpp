@@ -199,7 +199,8 @@ void autonomous() {
   // -----------------------------
 
   // ------- SOAPS --------
-  //SOAP();
+  SoapLong();
+  //SoapMiddle();
   // ----------------------
   //------------
 
@@ -223,7 +224,7 @@ void autonomous() {
 
   // --------------------------- TEST AUTOS --------------------------------------------
 
-
+  // testHeadingCorrect();
   //DistanceSensorTest();
   //turn_example();
   //square();

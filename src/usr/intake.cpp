@@ -159,6 +159,16 @@ void MiddleGoalScoreSkills(bool state){
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
     
 
+    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake for skills
+        
+    //     lowerintake.move(lowerVelocity*1.27*0.8);
+            
+    //     middle.move(midVelocity*1.27*0.8);
+            
+    //     scoring.move(scoringVelocity*1.27*0.8);
+
+
+    // }
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
         
         lowerintake.move(lowerVelocity*1.27);
@@ -343,7 +353,7 @@ void turnOffScoring(bool state){
 
 void turnLoweratXSpeed(bool state,int speed){
     if (state){
-        lowerintake.move(-1*speed);
+        lowerintake.move(speed*-1);
     }
 }
 
@@ -552,7 +562,7 @@ void autonAntiJam(){
         }
     }
 
-    else if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if scoring rollers are jammed
+    else if (fabs(middle.get_actual_velocity()) < 0.5 && fabs(middle.get_voltage()) > 2000) { // checks if middle rollers are jammed
     //     master.print(0,0, "start scoring");
 
         if (intakeStuckTime == 0) {
@@ -586,6 +596,7 @@ void autonAntiJam(){
 
             middle.move(-100);
             scoring.move(100);
+            intakeStuckTime = 0;
         }
 
 
@@ -603,9 +614,10 @@ void autonAntiJam(){
 
             lowerintake.move(127);
 
-            pros::delay(100);
+            pros::delay(300);
 
             lowerintake.move(-127);
+            intakeStuckTime = 0;
         }
 
 
