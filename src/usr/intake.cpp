@@ -159,26 +159,26 @@ void MiddleGoalScoreSkills(bool state){
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
     
 
-    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake for skills
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake for skills
         
-    //     lowerintake.move(lowerVelocity*1.27*0.8);
+        lowerintake.move(lowerVelocity*1.27*0.8);
             
-    //     middle.move(midVelocity*1.27*0.8);
+        middle.move(midVelocity*1.27*0.8);
             
-    //     scoring.move(scoringVelocity*1.27*0.8);
-
-
-    // }
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
-        
-        lowerintake.move(lowerVelocity*1.27);
-            
-        middle.move(midVelocity*1.27);
-            
-        scoring.move(scoringVelocity*1.27);
+        scoring.move(scoringVelocity*1.27*0.8);
 
 
     }
+    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
+        
+    //     lowerintake.move(lowerVelocity*1.27);
+            
+    //     middle.move(midVelocity*1.27);
+            
+    //     scoring.move(scoringVelocity*1.27);
+
+
+    // }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
             lowerintake.move(lowerVelocity*-1.27);
@@ -238,37 +238,37 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         // midDescore.extend();
 
-        middle.move(midVelocity*1.27*0.55);
+        middle.move(midVelocity*1.27);
             
-        lowerintake.move(scoringVelocity*1.27*0.45);
+        lowerintake.move(scoringVelocity*1.27);
 
         scoring.move(scoringVelocity*1.27);
 
-        pros::delay(200);
+        pros::delay(300);
 
         tester = true;
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
-            scoring.move(scoringVelocity*1.27);
-
-            if (stopMiddleLow == false){
-                lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.82);
-            }
-
-    }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
-    //         scoring.move(scoringVelocity*0.47);
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
+    //         scoring.move(scoringVelocity*1.27);
 
     //         if (stopMiddleLow == false){
     //             lowerintake.move(lowerVelocity*-1.17);
-    //             middle.move(midVelocity*-0.67);
+    //             middle.move(midVelocity*-0.75);
     //         }
-    //         else {
-                
-    //         } 
+
     // }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
+            scoring.move(scoringVelocity*0.87);
+
+            if (stopMiddleLow == false){
+                lowerintake.move(lowerVelocity*-1.17);
+                middle.move(midVelocity*-0.87);
+            }
+            else {
+                
+            } 
+    }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
         
         scoring.move(scoringVelocity*-1.27*0.5);
@@ -555,7 +555,7 @@ void autonAntiJam(){
         else if (pros::millis() - intakeStuckTime > 200) {
             master.print(0,0, "slow scoring");
             master.rumble("-");
-            scoring.move(scoringVelocity*-0.1);
+            scoring.move(scoringVelocity*-0.2);
 
             stopScoring = true;
             intakeStuckTime = 0;
