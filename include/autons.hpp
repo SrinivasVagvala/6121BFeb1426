@@ -113,3 +113,5 @@ void progSkills96();
 void progSkills81();
 
 void TwoInch();
+
+void Left4CurveRush();

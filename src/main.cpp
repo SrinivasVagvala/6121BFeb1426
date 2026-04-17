@@ -199,8 +199,9 @@ void autonomous() {
   // -----------------------------
 
   // ------- SOAPS --------
-  SoapLong();
+  //SoapLong();
   //SoapMiddle();
+  Left4CurveRush();
 
   
 
