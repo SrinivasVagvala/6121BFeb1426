@@ -263,7 +263,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.87);
+                middle.move(midVelocity*-0.77);
             }
             else {
                 
