@@ -2537,20 +2537,42 @@ void Left4CurveRush(){
 
   
 
-  chassis.odom_boomerang_dlead_set(0.4);
+  chassis.odom_boomerang_dlead_set(0.3);
 
   // im using 127 bc it doesnt acc run at 127 bc it slows down to curve
   chassis.pid_odom_set({{{0_in, 15_in}, fwd, 127},
                       {{-5_in, 20_in}, fwd, 127},
                       {{-10_in, 26_in}, fwd, 127},
-                      {{-40_in, -2_in}, fwd, 127}},
+                      {{-35_in, -2_in}, fwd, 127}},
                      true);
+  pros::delay(2430);
 
-  chassis.pid_wait();
+  
+
+  chassis.pid_odom_set({{{-32.5_in, 15_in}, rev, 127}}, true);
+  pros::delay(720);
+
+  chassis.pid_drive_set(-2_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  hood.extend();
+
+  pros::delay(650);
+
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_odom_set({{{-35_in, }, rev, 40}}, true);
-  chassis.pid_wait();
+  chassis.drive_set(DRIVE_SPEED, -30); // curve into the alley
+  pros::delay(1000);
+  chassis.drive_set(0, 0);
+
+  wingToggle();
+
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+
+
+  
   ///DESCORE PART FO;R LATER;
 
   // chassis.pid_turn_set(-50_deg,TURN_SPEED,false); // turn towards the matchloader
