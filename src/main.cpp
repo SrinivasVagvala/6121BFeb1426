@@ -190,8 +190,9 @@ void autonomous() {
   //progSkills75();
   //progSkills81();
   //progSkills96();
-  //progSkills79();
+  progSkills79Worlds();
   //progSkills83States();
+  //testing();
   
   // chassis.drive_set(DRIVE_SPEED, DRIVE_SPEED);
   // pros::delay(500);
@@ -201,7 +202,7 @@ void autonomous() {
   // ------- SOAPS --------
   //SoapLong();
   //SoapMiddle();
-  Left4CurveRush();
+  //Left4CurveRush();
 
   
 

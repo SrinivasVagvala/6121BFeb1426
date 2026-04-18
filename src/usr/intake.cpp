@@ -249,26 +249,26 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
         tester = true;
 
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
-            scoring.move(scoringVelocity*1.27);
-
-            if (stopMiddleLow == false){
-                lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.75);
-            }
-
-    }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
-    //         scoring.move(scoringVelocity*0.87);
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // middle goal scoring 
+    //         scoring.move(scoringVelocity*1.27);
 
     //         if (stopMiddleLow == false){
     //             lowerintake.move(lowerVelocity*-1.17);
-    //             middle.move(midVelocity*-0.87);
+    //             middle.move(midVelocity*-0.75);
     //         }
-    //         else {
-                
-    //         } 
+
     // }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
+            scoring.move(scoringVelocity*0.87);
+
+            if (stopMiddleLow == false){
+                lowerintake.move(lowerVelocity*-1.17);
+                middle.move(midVelocity*-0.87);
+            }
+            else {
+                
+            } 
+    }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
         
         scoring.move(scoringVelocity*-1.27*0.5);
