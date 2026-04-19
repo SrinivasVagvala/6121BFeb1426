@@ -158,17 +158,6 @@ void MiddleGoalScoreSkills(bool state){
 
 void intakeOpControl(){  // the intake velocity switches based on which button is being pressed
     
-
-    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake for skills
-        
-    //     lowerintake.move(lowerVelocity*1.27*0.8);
-            
-    //     middle.move(midVelocity*1.27*0.8);
-            
-    //     scoring.move(scoringVelocity*1.27*0.8);
-
-
-    // }
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){ // low goal / extake
         
         lowerintake.move(lowerVelocity*1.27);
@@ -179,6 +168,14 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
 
     }
+    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){ // scores 7 balls in low for skills 
+    //     lowerintake.move(lowerVelocity*50);
+            
+    //     middle.move(midVelocity*70);
+            
+    //     scoring.move(scoringVelocity*1.27);
+    // }
+
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
             lowerintake.move(lowerVelocity*-1.27);
@@ -258,12 +255,12 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             }
 
     }
-    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls for skills 
-    //         scoring.move(scoringVelocity*0.87);
+    // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){ // scores 7 balls in middle for skills 
+    //         scoring.move(scoringVelocity*0.37);
 
     //         if (stopMiddleLow == false){
     //             lowerintake.move(lowerVelocity*-1.17);
-    //             middle.move(midVelocity*-0.77);
+    //             middle.move(midVelocity*-0.60);
     //         }
     //         else {
                 

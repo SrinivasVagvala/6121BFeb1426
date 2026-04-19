@@ -190,7 +190,7 @@ void autonomous() {
   //progSkills75();
   //progSkills81();
   //progSkills96();
-  //progSkills79Worlds();
+  progSkills79Worlds();
   //progSkills83States();
   //testing();
   
@@ -242,7 +242,7 @@ void autonomous() {
   // turnScoringatXSpeed(true,127);
   // turnLoweratXSpeed(true,127);
   // turnMiddleatXSpeed(true,127);
-  Left7CurveRush();
+  //Left7CurveRush();
 
 
   // pros::delay(10000);
