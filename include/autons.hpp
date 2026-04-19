@@ -115,3 +115,5 @@ void progSkills79Worlds();
 void TwoInch();
 
 void Left4CurveRush();
+
+void Left7CurveRush();

@@ -2548,79 +2548,66 @@ void TwoInch(){
 
 void Left4CurveRush(){
   wingToggle();
+  
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
   turnScoringatXSpeed(true, 127);
   turnLoweratXSpeed(true, 127);
   turnMiddleatXSpeed(true, 127);
 
-  
+
+  chassis.pid_drive_set(13_in, DRIVE_SPEED, true);  // moves towards triple balls
+  pros::delay(410);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+ 
 
   chassis.odom_boomerang_dlead_set(0.3);
 
-  // im using 127 bc it doesnt acc run at 127 bc it slows down to curve
-  chassis.pid_odom_set({{{0_in, 15_in}, fwd, 127},
-                      {{-5_in, 20_in}, fwd, 127},
-                      {{-10_in, 26_in}, fwd, 127},
-                      {{-35_in, -2_in}, fwd, 127}},
-                     true);
-  pros::delay(2430);
 
-  
+  // five ball is -20_in, 17.5_in, 190_deg, fwd, 127
 
-  chassis.pid_odom_set({{{-32.5_in, 15_in}, rev, 127}}, true);
-  pros::delay(720);
 
-  chassis.pid_drive_set(-2_in, DRIVE_SPEED, true);
-  chassis.pid_wait_quick_chain();
-
+  chassis.pid_odom_set({{{-2_in, 18_in}, fwd, 127},
+                        {{-28.5_in, 0_in, 195_deg}, fwd, 127}}, true);
+  pros::delay(1830);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+    
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-2_in);
+  turnScoringatXSpeed(true, -127);
+  turnLoweratXSpeed(true, -127);
+  turnMiddleatXSpeed(true, -127);
+  chassis.pid_wait_until(-6_in);
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
   hood.extend();
-
-  pros::delay(650);
-
+  chassis.pid_wait();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  
 
-  // chassis.pid_odom_set({{{-32.5_in, 15_in}, rev, 127}}, true);
-  // pros::delay(720);
+  pros::delay(250);
 
-  // chassis.pid_drive_set(-2_in, DRIVE_SPEED, true);
-  // chassis.pid_wait_quick_chain();
-
-  // hood.extend();
-
-  // pros::delay(650);
-
-  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);
-
-  // chassis.drive_set(DRIVE_SPEED, -30); // curve into the alley
-  // pros::delay(1000);
-  // chassis.drive_set(0, 0);
-
-  // wingToggle();
-
-  // chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
-  // chassis.pid_wait_quick_chain();
-
-
-
-  
+  hood.retract();
+    
   ///DESCORE PART FO;R LATER;
 
   chassis.pid_turn_set(-50_deg,TURN_SPEED,false); // turn towards the matchloader
-  chassis.pid_wait();
+  chassis.pid_wait_quick_chain();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(11_in,DRIVE_SPEED,true); // move into first matchloader to empty
-  chassis.pid_wait();
+  chassis.pid_drive_set(4_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_quick_chain();
 
   chassis.pid_turn_set(50_deg,TURN_SPEED,false); // turn towards the matchloader
-  chassis.pid_wait();
+  chassis.pid_wait_quick_chain();
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);
 
-  chassis.pid_drive_set(-10_in,DRIVE_SPEED*0.1,true); // move into first matchloader to empty
-  chassis.pid_wait();
+  wingToggle();
+
+  chassis.pid_drive_set(-22_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_quick_chain();
 
 
 
@@ -2634,7 +2621,138 @@ void Left4CurveRush(){
 
 }
 
+void Left7CurveRush(){
+  
+  //wingToggle();
+
+  
+  
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
+
+
+  chassis.pid_drive_set(13_in, DRIVE_SPEED, true);  // moves towards triple balls
+  pros::delay(410);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+ 
+
+  chassis.odom_boomerang_dlead_set(0.3);
+
+
+  // five ball is -20_in, 17.5_in, 190_deg, fwd, 127
+
+
+  chassis.pid_odom_set({{{-2_in, 18_in}, fwd, 127},
+                        {{-30_in, -4_in, 196_deg}, fwd, 127}}, true);
+  chassis.pid_wait_until(3_in);
+  wingToggle();
+  matchloaderActive(true);
+  pros::delay(1850);
+
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
+  pros::delay(800);
+
+  chassis.pid_drive_set(-29, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-23_in);
+  hood.extend();
+  chassis.pid_wait();
+
+
+
+  pros::delay(800);
+
+  hood.retract();
+
+
+  ///DESCORE PART FO;R LATER;
+
+  chassis.pid_turn_set(-50_deg,TURN_SPEED,false); // turn towards the matchloader
+  chassis.pid_wait_quick_chain();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(4_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_turn_set(50_deg,TURN_SPEED,false); // turn towards the matchloader
+  chassis.pid_wait_quick_chain();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  wingToggle();
+
+  chassis.pid_drive_set(-22_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_until(-5_in);
+  chassis.pid_speed_max_set(DRIVE_SPEED*0.3);
+  chassis.pid_wait_quick_chain();
+
+}
+
 void Right4CurveRush(){
+  wingToggle();
+  
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
+
+
+  chassis.pid_drive_set(13_in, DRIVE_SPEED, true);  // moves towards triple balls
+  pros::delay(410);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+ 
+
+  chassis.odom_boomerang_dlead_set(0.3);
+
+
+  // five ball is -20_in, 17.5_in, 190_deg, fwd, 127
+
+
+  chassis.pid_odom_set({{{2_in, 18_in}, fwd, 127},
+                        {{28.5_in, 0_in, 195_deg}, fwd, 127}}, true);
+  pros::delay(1830);
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+    
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-2_in);
+  turnScoringatXSpeed(true, -127);
+  turnLoweratXSpeed(true, -127);
+  turnMiddleatXSpeed(true, -127);
+  chassis.pid_wait_until(-6_in);
+  turnScoringatXSpeed(true, 127);
+  turnLoweratXSpeed(true, 127);
+  turnMiddleatXSpeed(true, 127);
+  hood.extend();
+  chassis.pid_wait();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+
+  pros::delay(250);
+
+  hood.retract();
+    
+  ///DESCORE PART FO;R LATER;
+
+  chassis.pid_turn_set(50_deg,TURN_SPEED,false); // turn towards the matchloader
+  chassis.pid_wait_quick_chain();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  chassis.pid_drive_set(4_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_turn_set(-50_deg,TURN_SPEED,false); // turn towards the matchloader
+  chassis.pid_wait_quick_chain();
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+
+  wingToggle();
+
+  chassis.pid_drive_set(-22_in,DRIVE_SPEED,true); // move into first matchloader to empty
+  chassis.pid_wait_quick_chain();
+
 
 }
 
