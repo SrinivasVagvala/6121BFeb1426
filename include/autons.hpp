@@ -116,4 +116,8 @@ void TwoInch();
 
 void Left4CurveRush();
 
+void Right4CurveRush();
+
 void Left7CurveRush();
+
+void Right7CurveRush();

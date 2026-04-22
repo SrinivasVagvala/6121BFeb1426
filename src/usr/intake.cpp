@@ -169,9 +169,9 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
     }
     // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){ // scores 7 balls in low for skills 
-    //     lowerintake.move(lowerVelocity*50);
+    //     lowerintake.move(lowerVelocity*0.50);
             
-    //     middle.move(midVelocity*70);
+    //     middle.move(midVelocity*0.70);
             
     //     scoring.move(scoringVelocity*1.27);
     // }
@@ -241,7 +241,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
         scoring.move(scoringVelocity*1.27);
 
-        pros::delay(300);
+        pros::delay(150);
 
         tester = true;
 
@@ -251,7 +251,7 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
 
             if (stopMiddleLow == false){
                 lowerintake.move(lowerVelocity*-1.17);
-                middle.move(midVelocity*-0.75);
+                middle.move(midVelocity*-1.02);
             }
 
     }
@@ -266,9 +266,9 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
                 
     //         } 
     // }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // manual anti jam bc aryan is bum ig idrk
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){ // uncradling
         
-        scoring.move(scoringVelocity*-1.27*0.5);
+        scoring.move(scoringVelocity*-1.27*0.8);
         lowerintake.move(lowerVelocity*1.27*0.3);
         middle.move(midVelocity*1.27*0.3);
 
