@@ -190,7 +190,7 @@ void autonomous() {
   //progSkills75();
   //progSkills81();
   //progSkills96();
-  //progSkills79Worlds();
+  // progSkills79Worlds();
   //progSkills83States();
   //testing();
   
@@ -200,11 +200,13 @@ void autonomous() {
   // -----------------------------
 
   // ------- SOAPS --------
-  SoapLong();
+  // SoapLong();
   //SoapMiddle();
   //Left4CurveRush();
   //Right4CurveRush();
-  //Inverse3Plus4();
+  // Inverse3Plus4();
+  // Right7BallDescore();
+  // Left7BallDescore();
   //Right7CurveRush();
   //Left7CurveRush();
   
@@ -216,8 +218,8 @@ void autonomous() {
   // ---------- Long + Middle -----------
   //Left3Plus4();
   //Inverse12C();
-  //Inverse3Plus4(); 
-  //LowInverse3Plus4();
+  // Inverse3Plus4(); 
+  LowInverse3Plus4();
   //Right4Plus6();
   //progSkills75();
   //progSkills81();
@@ -229,6 +231,9 @@ void autonomous() {
   // ------- 4 Ball Rush --------
   //Right4BallRush();
   //Left4BallRush();
+  //progSkills79Worlds();
+  // SoapLong();
+  //Left7CurveRush();
   // ----------------------------
 
   // --------------------------- TEST AUTOS --------------------------------------------
@@ -446,7 +451,7 @@ void opcontrol() {
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
     
-    
+
 
 
     // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){ // park and low goal

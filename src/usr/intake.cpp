@@ -175,7 +175,6 @@ void intakeOpControl(){  // the intake velocity switches based on which button i
             
     //     scoring.move(scoringVelocity*1.27);
     // }
-
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && buttonDone == false) { // intake
 
             lowerintake.move(lowerVelocity*-1.27);
